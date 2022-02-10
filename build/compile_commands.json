@@ -1,0 +1,62 @@
+[
+{
+  "directory": "/home/congxiang/work/TrafficSimulator/build",
+  "command": "/bin/x86_64-linux-gnu-g++-10   -I/home/congxiang/work/TrafficSimulator -I/home/congxiang/work/TrafficSimulator/config -I/home/congxiang/work/TrafficSimulator/data -I/home/congxiang/work/TrafficSimulator/manager -I/home/congxiang/work/TrafficSimulator/random   -O0 -Wall -g   -std=gnu++2a -o CMakeFiles/GTest.dir/test/gtest_main.cc.o -c /home/congxiang/work/TrafficSimulator/test/gtest_main.cc",
+  "file": "/home/congxiang/work/TrafficSimulator/test/gtest_main.cc"
+},
+{
+  "directory": "/home/congxiang/work/TrafficSimulator/build",
+  "command": "/bin/x86_64-linux-gnu-g++-10   -I/home/congxiang/work/TrafficSimulator -I/home/congxiang/work/TrafficSimulator/config -I/home/congxiang/work/TrafficSimulator/data -I/home/congxiang/work/TrafficSimulator/manager -I/home/congxiang/work/TrafficSimulator/random   -O0 -Wall -g   -std=gnu++2a -o CMakeFiles/TestTraffic.dir/test/traffic_main.cc.o -c /home/congxiang/work/TrafficSimulator/test/traffic_main.cc",
+  "file": "/home/congxiang/work/TrafficSimulator/test/traffic_main.cc"
+},
+{
+  "directory": "/home/congxiang/work/TrafficSimulator/build",
+  "command": "/bin/x86_64-linux-gnu-g++-10   -I/home/congxiang/work/TrafficSimulator -I/home/congxiang/work/TrafficSimulator/config -I/home/congxiang/work/TrafficSimulator/data -I/home/congxiang/work/TrafficSimulator/manager -I/home/congxiang/work/TrafficSimulator/random   -O0 -Wall -g   -std=gnu++2a -o CMakeFiles/traffic.dir/data/Graph.cc.o -c /home/congxiang/work/TrafficSimulator/data/Graph.cc",
+  "file": "/home/congxiang/work/TrafficSimulator/data/Graph.cc"
+},
+{
+  "directory": "/home/congxiang/work/TrafficSimulator/build",
+  "command": "/bin/x86_64-linux-gnu-g++-10   -I/home/congxiang/work/TrafficSimulator -I/home/congxiang/work/TrafficSimulator/config -I/home/congxiang/work/TrafficSimulator/data -I/home/congxiang/work/TrafficSimulator/manager -I/home/congxiang/work/TrafficSimulator/random   -O0 -Wall -g   -std=gnu++2a -o CMakeFiles/traffic.dir/data/Map.cc.o -c /home/congxiang/work/TrafficSimulator/data/Map.cc",
+  "file": "/home/congxiang/work/TrafficSimulator/data/Map.cc"
+},
+{
+  "directory": "/home/congxiang/work/TrafficSimulator/build",
+  "command": "/bin/x86_64-linux-gnu-g++-10   -I/home/congxiang/work/TrafficSimulator -I/home/congxiang/work/TrafficSimulator/config -I/home/congxiang/work/TrafficSimulator/data -I/home/congxiang/work/TrafficSimulator/manager -I/home/congxiang/work/TrafficSimulator/random   -O0 -Wall -g   -std=gnu++2a -o CMakeFiles/traffic.dir/data/Person.cc.o -c /home/congxiang/work/TrafficSimulator/data/Person.cc",
+  "file": "/home/congxiang/work/TrafficSimulator/data/Person.cc"
+},
+{
+  "directory": "/home/congxiang/work/TrafficSimulator/build",
+  "command": "/bin/x86_64-linux-gnu-g++-10   -I/home/congxiang/work/TrafficSimulator -I/home/congxiang/work/TrafficSimulator/config -I/home/congxiang/work/TrafficSimulator/data -I/home/congxiang/work/TrafficSimulator/manager -I/home/congxiang/work/TrafficSimulator/random   -O0 -Wall -g   -std=gnu++2a -o CMakeFiles/traffic.dir/data/Bicycle.cc.o -c /home/congxiang/work/TrafficSimulator/data/Bicycle.cc",
+  "file": "/home/congxiang/work/TrafficSimulator/data/Bicycle.cc"
+},
+{
+  "directory": "/home/congxiang/work/TrafficSimulator/build",
+  "command": "/bin/x86_64-linux-gnu-g++-10   -I/home/congxiang/work/TrafficSimulator -I/home/congxiang/work/TrafficSimulator/config -I/home/congxiang/work/TrafficSimulator/data -I/home/congxiang/work/TrafficSimulator/manager -I/home/congxiang/work/TrafficSimulator/random   -O0 -Wall -g   -std=gnu++2a -o CMakeFiles/traffic.dir/data/Tricycle.cc.o -c /home/congxiang/work/TrafficSimulator/data/Tricycle.cc",
+  "file": "/home/congxiang/work/TrafficSimulator/data/Tricycle.cc"
+},
+{
+  "directory": "/home/congxiang/work/TrafficSimulator/build",
+  "command": "/bin/x86_64-linux-gnu-g++-10   -I/home/congxiang/work/TrafficSimulator -I/home/congxiang/work/TrafficSimulator/config -I/home/congxiang/work/TrafficSimulator/data -I/home/congxiang/work/TrafficSimulator/manager -I/home/congxiang/work/TrafficSimulator/random   -O0 -Wall -g   -std=gnu++2a -o CMakeFiles/traffic.dir/data/Electrocar.cc.o -c /home/congxiang/work/TrafficSimulator/data/Electrocar.cc",
+  "file": "/home/congxiang/work/TrafficSimulator/data/Electrocar.cc"
+},
+{
+  "directory": "/home/congxiang/work/TrafficSimulator/build",
+  "command": "/bin/x86_64-linux-gnu-g++-10   -I/home/congxiang/work/TrafficSimulator -I/home/congxiang/work/TrafficSimulator/config -I/home/congxiang/work/TrafficSimulator/data -I/home/congxiang/work/TrafficSimulator/manager -I/home/congxiang/work/TrafficSimulator/random   -O0 -Wall -g   -std=gnu++2a -o CMakeFiles/traffic.dir/data/Transport.cc.o -c /home/congxiang/work/TrafficSimulator/data/Transport.cc",
+  "file": "/home/congxiang/work/TrafficSimulator/data/Transport.cc"
+},
+{
+  "directory": "/home/congxiang/work/TrafficSimulator/build",
+  "command": "/bin/x86_64-linux-gnu-g++-10   -I/home/congxiang/work/TrafficSimulator -I/home/congxiang/work/TrafficSimulator/config -I/home/congxiang/work/TrafficSimulator/data -I/home/congxiang/work/TrafficSimulator/manager -I/home/congxiang/work/TrafficSimulator/random   -O0 -Wall -g   -std=gnu++2a -o CMakeFiles/traffic.dir/manager/Manager.cc.o -c /home/congxiang/work/TrafficSimulator/manager/Manager.cc",
+  "file": "/home/congxiang/work/TrafficSimulator/manager/Manager.cc"
+},
+{
+  "directory": "/home/congxiang/work/TrafficSimulator/build",
+  "command": "/bin/x86_64-linux-gnu-g++-10   -I/home/congxiang/work/TrafficSimulator -I/home/congxiang/work/TrafficSimulator/config -I/home/congxiang/work/TrafficSimulator/data -I/home/congxiang/work/TrafficSimulator/manager -I/home/congxiang/work/TrafficSimulator/random   -O0 -Wall -g   -std=gnu++2a -o CMakeFiles/traffic.dir/random/Random.cc.o -c /home/congxiang/work/TrafficSimulator/random/Random.cc",
+  "file": "/home/congxiang/work/TrafficSimulator/random/Random.cc"
+},
+{
+  "directory": "/home/congxiang/work/TrafficSimulator/build",
+  "command": "/bin/x86_64-linux-gnu-g++-10   -I/home/congxiang/work/TrafficSimulator -I/home/congxiang/work/TrafficSimulator/config -I/home/congxiang/work/TrafficSimulator/data -I/home/congxiang/work/TrafficSimulator/manager -I/home/congxiang/work/TrafficSimulator/random   -O0 -Wall -g   -std=gnu++2a -o CMakeFiles/traffic.dir/Simulator.cc.o -c /home/congxiang/work/TrafficSimulator/Simulator.cc",
+  "file": "/home/congxiang/work/TrafficSimulator/Simulator.cc"
+}
+]

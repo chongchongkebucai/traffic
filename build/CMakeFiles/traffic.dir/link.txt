@@ -1,0 +1,2 @@
+/bin/ar qc libtraffic.a  CMakeFiles/traffic.dir/data/Graph.cc.o CMakeFiles/traffic.dir/data/Map.cc.o CMakeFiles/traffic.dir/data/Person.cc.o CMakeFiles/traffic.dir/data/Bicycle.cc.o CMakeFiles/traffic.dir/data/Tricycle.cc.o CMakeFiles/traffic.dir/data/Electrocar.cc.o CMakeFiles/traffic.dir/data/Transport.cc.o CMakeFiles/traffic.dir/manager/Manager.cc.o CMakeFiles/traffic.dir/random/Random.cc.o CMakeFiles/traffic.dir/Simulator.cc.o
+/bin/ranlib libtraffic.a

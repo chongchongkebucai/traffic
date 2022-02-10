@@ -1,0 +1,77 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.11"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "TrafficSimulator",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "GTest::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-GTest-Debug-23cb4ab9ec5b667ec146.json",
+					"name" : "GTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "TestTraffic::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-TestTraffic-Debug-7233b893418f8755b84c.json",
+					"name" : "TestTraffic",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "traffic::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-traffic-Debug-75034a5e69e791a6eaa6.json",
+					"name" : "traffic",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/congxiang/work/TrafficSimulator/build",
+		"source" : "/home/congxiang/work/TrafficSimulator"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

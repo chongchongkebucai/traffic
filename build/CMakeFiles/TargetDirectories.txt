@@ -1,5 +1,0 @@
-/home/congxiang/work/TrafficSimulator/build/CMakeFiles/rebuild_cache.dir
-/home/congxiang/work/TrafficSimulator/build/CMakeFiles/edit_cache.dir
-/home/congxiang/work/TrafficSimulator/build/CMakeFiles/GTest.dir
-/home/congxiang/work/TrafficSimulator/build/CMakeFiles/TestTraffic.dir
-/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir

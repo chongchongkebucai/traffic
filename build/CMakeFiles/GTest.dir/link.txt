@@ -1,1 +1,0 @@
-/bin/x86_64-linux-gnu-g++-10   -O0 -Wall -g   CMakeFiles/GTest.dir/test/gtest_main.cc.o  -o GTest  libtraffic.a -Wl,-Bstatic -lgtest -lgtest_main -Wl,-Bdynamic -lpthread 

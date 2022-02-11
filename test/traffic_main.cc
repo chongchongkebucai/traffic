@@ -14,10 +14,10 @@ int main() {
         simulator.leave_crossing();
 
         count++;
-        if (count > 10000) {
+        if (count > 1000) {
             exit(0);
         }
-        if (500 <= count && count <= 1000) {
+        if (count >= 500) {
             simulator.write_date(count);
         }
     }

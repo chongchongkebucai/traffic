@@ -176,194 +176,221 @@ Simulator.cc.s:
 	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/Simulator.cc.s
 .PHONY : Simulator.cc.s
 
-data/Bicycle.o: data/Bicycle.cc.o
+db/Bicycle.o: db/Bicycle.cc.o
 
-.PHONY : data/Bicycle.o
-
-# target to build an object file
-data/Bicycle.cc.o:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Bicycle.cc.o
-.PHONY : data/Bicycle.cc.o
-
-data/Bicycle.i: data/Bicycle.cc.i
-
-.PHONY : data/Bicycle.i
-
-# target to preprocess a source file
-data/Bicycle.cc.i:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Bicycle.cc.i
-.PHONY : data/Bicycle.cc.i
-
-data/Bicycle.s: data/Bicycle.cc.s
-
-.PHONY : data/Bicycle.s
-
-# target to generate assembly for a file
-data/Bicycle.cc.s:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Bicycle.cc.s
-.PHONY : data/Bicycle.cc.s
-
-data/Electrocar.o: data/Electrocar.cc.o
-
-.PHONY : data/Electrocar.o
+.PHONY : db/Bicycle.o
 
 # target to build an object file
-data/Electrocar.cc.o:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Electrocar.cc.o
-.PHONY : data/Electrocar.cc.o
+db/Bicycle.cc.o:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Bicycle.cc.o
+.PHONY : db/Bicycle.cc.o
 
-data/Electrocar.i: data/Electrocar.cc.i
+db/Bicycle.i: db/Bicycle.cc.i
 
-.PHONY : data/Electrocar.i
+.PHONY : db/Bicycle.i
 
 # target to preprocess a source file
-data/Electrocar.cc.i:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Electrocar.cc.i
-.PHONY : data/Electrocar.cc.i
+db/Bicycle.cc.i:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Bicycle.cc.i
+.PHONY : db/Bicycle.cc.i
 
-data/Electrocar.s: data/Electrocar.cc.s
+db/Bicycle.s: db/Bicycle.cc.s
 
-.PHONY : data/Electrocar.s
+.PHONY : db/Bicycle.s
 
 # target to generate assembly for a file
-data/Electrocar.cc.s:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Electrocar.cc.s
-.PHONY : data/Electrocar.cc.s
+db/Bicycle.cc.s:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Bicycle.cc.s
+.PHONY : db/Bicycle.cc.s
 
-data/Graph.o: data/Graph.cc.o
+db/Electrocar.o: db/Electrocar.cc.o
 
-.PHONY : data/Graph.o
+.PHONY : db/Electrocar.o
 
 # target to build an object file
-data/Graph.cc.o:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Graph.cc.o
-.PHONY : data/Graph.cc.o
+db/Electrocar.cc.o:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Electrocar.cc.o
+.PHONY : db/Electrocar.cc.o
 
-data/Graph.i: data/Graph.cc.i
+db/Electrocar.i: db/Electrocar.cc.i
 
-.PHONY : data/Graph.i
+.PHONY : db/Electrocar.i
 
 # target to preprocess a source file
-data/Graph.cc.i:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Graph.cc.i
-.PHONY : data/Graph.cc.i
+db/Electrocar.cc.i:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Electrocar.cc.i
+.PHONY : db/Electrocar.cc.i
 
-data/Graph.s: data/Graph.cc.s
+db/Electrocar.s: db/Electrocar.cc.s
 
-.PHONY : data/Graph.s
+.PHONY : db/Electrocar.s
 
 # target to generate assembly for a file
-data/Graph.cc.s:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Graph.cc.s
-.PHONY : data/Graph.cc.s
+db/Electrocar.cc.s:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Electrocar.cc.s
+.PHONY : db/Electrocar.cc.s
 
-data/Map.o: data/Map.cc.o
+db/Graph.o: db/Graph.cc.o
 
-.PHONY : data/Map.o
+.PHONY : db/Graph.o
 
 # target to build an object file
-data/Map.cc.o:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Map.cc.o
-.PHONY : data/Map.cc.o
+db/Graph.cc.o:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Graph.cc.o
+.PHONY : db/Graph.cc.o
 
-data/Map.i: data/Map.cc.i
+db/Graph.i: db/Graph.cc.i
 
-.PHONY : data/Map.i
+.PHONY : db/Graph.i
 
 # target to preprocess a source file
-data/Map.cc.i:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Map.cc.i
-.PHONY : data/Map.cc.i
+db/Graph.cc.i:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Graph.cc.i
+.PHONY : db/Graph.cc.i
 
-data/Map.s: data/Map.cc.s
+db/Graph.s: db/Graph.cc.s
 
-.PHONY : data/Map.s
+.PHONY : db/Graph.s
 
 # target to generate assembly for a file
-data/Map.cc.s:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Map.cc.s
-.PHONY : data/Map.cc.s
+db/Graph.cc.s:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Graph.cc.s
+.PHONY : db/Graph.cc.s
 
-data/Person.o: data/Person.cc.o
+db/Map.o: db/Map.cc.o
 
-.PHONY : data/Person.o
+.PHONY : db/Map.o
 
 # target to build an object file
-data/Person.cc.o:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Person.cc.o
-.PHONY : data/Person.cc.o
+db/Map.cc.o:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Map.cc.o
+.PHONY : db/Map.cc.o
 
-data/Person.i: data/Person.cc.i
+db/Map.i: db/Map.cc.i
 
-.PHONY : data/Person.i
+.PHONY : db/Map.i
 
 # target to preprocess a source file
-data/Person.cc.i:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Person.cc.i
-.PHONY : data/Person.cc.i
+db/Map.cc.i:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Map.cc.i
+.PHONY : db/Map.cc.i
 
-data/Person.s: data/Person.cc.s
+db/Map.s: db/Map.cc.s
 
-.PHONY : data/Person.s
+.PHONY : db/Map.s
 
 # target to generate assembly for a file
-data/Person.cc.s:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Person.cc.s
-.PHONY : data/Person.cc.s
+db/Map.cc.s:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Map.cc.s
+.PHONY : db/Map.cc.s
 
-data/Transport.o: data/Transport.cc.o
+db/Person.o: db/Person.cc.o
 
-.PHONY : data/Transport.o
+.PHONY : db/Person.o
 
 # target to build an object file
-data/Transport.cc.o:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Transport.cc.o
-.PHONY : data/Transport.cc.o
+db/Person.cc.o:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Person.cc.o
+.PHONY : db/Person.cc.o
 
-data/Transport.i: data/Transport.cc.i
+db/Person.i: db/Person.cc.i
 
-.PHONY : data/Transport.i
+.PHONY : db/Person.i
 
 # target to preprocess a source file
-data/Transport.cc.i:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Transport.cc.i
-.PHONY : data/Transport.cc.i
+db/Person.cc.i:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Person.cc.i
+.PHONY : db/Person.cc.i
 
-data/Transport.s: data/Transport.cc.s
+db/Person.s: db/Person.cc.s
 
-.PHONY : data/Transport.s
+.PHONY : db/Person.s
 
 # target to generate assembly for a file
-data/Transport.cc.s:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Transport.cc.s
-.PHONY : data/Transport.cc.s
+db/Person.cc.s:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Person.cc.s
+.PHONY : db/Person.cc.s
 
-data/Tricycle.o: data/Tricycle.cc.o
+db/Transport.o: db/Transport.cc.o
 
-.PHONY : data/Tricycle.o
+.PHONY : db/Transport.o
 
 # target to build an object file
-data/Tricycle.cc.o:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Tricycle.cc.o
-.PHONY : data/Tricycle.cc.o
+db/Transport.cc.o:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Transport.cc.o
+.PHONY : db/Transport.cc.o
 
-data/Tricycle.i: data/Tricycle.cc.i
+db/Transport.i: db/Transport.cc.i
 
-.PHONY : data/Tricycle.i
+.PHONY : db/Transport.i
 
 # target to preprocess a source file
-data/Tricycle.cc.i:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Tricycle.cc.i
-.PHONY : data/Tricycle.cc.i
+db/Transport.cc.i:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Transport.cc.i
+.PHONY : db/Transport.cc.i
 
-data/Tricycle.s: data/Tricycle.cc.s
+db/Transport.s: db/Transport.cc.s
 
-.PHONY : data/Tricycle.s
+.PHONY : db/Transport.s
 
 # target to generate assembly for a file
-data/Tricycle.cc.s:
-	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/data/Tricycle.cc.s
-.PHONY : data/Tricycle.cc.s
+db/Transport.cc.s:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Transport.cc.s
+.PHONY : db/Transport.cc.s
+
+db/Tricycle.o: db/Tricycle.cc.o
+
+.PHONY : db/Tricycle.o
+
+# target to build an object file
+db/Tricycle.cc.o:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Tricycle.cc.o
+.PHONY : db/Tricycle.cc.o
+
+db/Tricycle.i: db/Tricycle.cc.i
+
+.PHONY : db/Tricycle.i
+
+# target to preprocess a source file
+db/Tricycle.cc.i:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Tricycle.cc.i
+.PHONY : db/Tricycle.cc.i
+
+db/Tricycle.s: db/Tricycle.cc.s
+
+.PHONY : db/Tricycle.s
+
+# target to generate assembly for a file
+db/Tricycle.cc.s:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/db/Tricycle.cc.s
+.PHONY : db/Tricycle.cc.s
+
+io/Log.o: io/Log.cc.o
+
+.PHONY : io/Log.o
+
+# target to build an object file
+io/Log.cc.o:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/io/Log.cc.o
+.PHONY : io/Log.cc.o
+
+io/Log.i: io/Log.cc.i
+
+.PHONY : io/Log.i
+
+# target to preprocess a source file
+io/Log.cc.i:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/io/Log.cc.i
+.PHONY : io/Log.cc.i
+
+io/Log.s: io/Log.cc.s
+
+.PHONY : io/Log.s
+
+# target to generate assembly for a file
+io/Log.cc.s:
+	$(MAKE) -f CMakeFiles/traffic.dir/build.make CMakeFiles/traffic.dir/io/Log.cc.s
+.PHONY : io/Log.cc.s
 
 manager/Manager.o: manager/Manager.cc.o
 
@@ -487,27 +514,30 @@ help:
 	@echo "... Simulator.o"
 	@echo "... Simulator.i"
 	@echo "... Simulator.s"
-	@echo "... data/Bicycle.o"
-	@echo "... data/Bicycle.i"
-	@echo "... data/Bicycle.s"
-	@echo "... data/Electrocar.o"
-	@echo "... data/Electrocar.i"
-	@echo "... data/Electrocar.s"
-	@echo "... data/Graph.o"
-	@echo "... data/Graph.i"
-	@echo "... data/Graph.s"
-	@echo "... data/Map.o"
-	@echo "... data/Map.i"
-	@echo "... data/Map.s"
-	@echo "... data/Person.o"
-	@echo "... data/Person.i"
-	@echo "... data/Person.s"
-	@echo "... data/Transport.o"
-	@echo "... data/Transport.i"
-	@echo "... data/Transport.s"
-	@echo "... data/Tricycle.o"
-	@echo "... data/Tricycle.i"
-	@echo "... data/Tricycle.s"
+	@echo "... db/Bicycle.o"
+	@echo "... db/Bicycle.i"
+	@echo "... db/Bicycle.s"
+	@echo "... db/Electrocar.o"
+	@echo "... db/Electrocar.i"
+	@echo "... db/Electrocar.s"
+	@echo "... db/Graph.o"
+	@echo "... db/Graph.i"
+	@echo "... db/Graph.s"
+	@echo "... db/Map.o"
+	@echo "... db/Map.i"
+	@echo "... db/Map.s"
+	@echo "... db/Person.o"
+	@echo "... db/Person.i"
+	@echo "... db/Person.s"
+	@echo "... db/Transport.o"
+	@echo "... db/Transport.i"
+	@echo "... db/Transport.s"
+	@echo "... db/Tricycle.o"
+	@echo "... db/Tricycle.i"
+	@echo "... db/Tricycle.s"
+	@echo "... io/Log.o"
+	@echo "... io/Log.i"
+	@echo "... io/Log.s"
 	@echo "... manager/Manager.o"
 	@echo "... manager/Manager.i"
 	@echo "... manager/Manager.s"

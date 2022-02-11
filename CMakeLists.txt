@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS_DEBUG " -O0 -Wall -g")
 
 include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/config)
-include_directories(${PROJECT_SOURCE_DIR}/data)
+include_directories(${PROJECT_SOURCE_DIR}/db)
 include_directories(${PROJECT_SOURCE_DIR}/io)
 include_directories(${PROJECT_SOURCE_DIR}/manager)
 include_directories(${PROJECT_SOURCE_DIR}/random)
@@ -15,13 +15,13 @@ include_directories(${PROJECT_SOURCE_DIR}/random)
 message(${PROJECT_SOURCE_DIR})
 
 add_library(traffic  STATIC
-data/Graph.cc
-data/Map.cc
-data/Person.cc
-data/Bicycle.cc
-data/Tricycle.cc
-data/Electrocar.cc
-data/Transport.cc
+db/Graph.cc
+db/Map.cc
+db/Person.cc
+db/Bicycle.cc
+db/Tricycle.cc
+db/Electrocar.cc
+db/Transport.cc
 
 io/Log.cc
 manager/Manager.cc

@@ -15,7 +15,7 @@ Log::Log(Config *config) {
 }
 
 void Log::write(int time, const list<Transport *> &transports) {
-    _out << time << "; ";
+    _out << time << " ; ";
 
     for (auto trans : transports) {
         if (dynamic_cast<Person *>(trans) != nullptr) {
@@ -33,7 +33,7 @@ void Log::write(int time, const list<Transport *> &transports) {
         }
     }
 
-    _out << "\n";
+    _out << std::endl;
 }
 
 void Log::write(Transport *trans) {

@@ -25,6 +25,8 @@ Manager.h
 ../Manager.h
 Map.h
 ../Map.h
+Log.h
+../Log.h
 Random.h
 ../Random.h
 Transport.h
@@ -42,27 +44,27 @@ string
 vector
 -
 
-../data/Bicycle.h
+../db/Bicycle.h
 Car.h
-../data/Car.h
+../db/Car.h
 Location.h
-../data/Location.h
+../db/Location.h
 
-../data/Car.h
+../db/Car.h
 Location.h
-../data/Location.h
+../db/Location.h
 Transport.h
-../data/Transport.h
+../db/Transport.h
 
-../data/Electrocar.h
+../db/Electrocar.h
 Car.h
-../data/Car.h
+../db/Car.h
 Location.h
-../data/Location.h
+../db/Location.h
 
-../data/Enum.h
+../db/Enum.h
 
-../data/Graph.h
+../db/Graph.h
 cassert
 -
 iostream
@@ -70,13 +72,13 @@ iostream
 vector
 -
 Location.h
-../data/Location.h
+../db/Location.h
 
-../data/Location.h
+../db/Location.h
 ostream
 -
 
-../data/Map.h
+../db/Map.h
 algorithm
 -
 cassert
@@ -84,41 +86,57 @@ cassert
 set
 -
 Config.h
-../data/Config.h
+../db/Config.h
 Graph.h
-../data/Graph.h
+../db/Graph.h
 Location.h
-../data/Location.h
+../db/Location.h
 Rect.h
-../data/Rect.h
+../db/Rect.h
 Transport.h
-../data/Transport.h
+../db/Transport.h
 
-../data/Person.h
+../db/Person.h
 Location.h
-../data/Location.h
+../db/Location.h
 Transport.h
-../data/Transport.h
+../db/Transport.h
 
-../data/Rect.h
+../db/Rect.h
 Location.h
-../data/Location.h
+../db/Location.h
 
-../data/Transport.h
+../db/Transport.h
 iostream
 -
 Enum.h
-../data/Enum.h
+../db/Enum.h
 Location.h
-../data/Location.h
+../db/Location.h
 Rect.h
-../data/Rect.h
+../db/Rect.h
 
-../data/Tricycle.h
+../db/Tricycle.h
 Car.h
-../data/Car.h
+../db/Car.h
 Location.h
-../data/Location.h
+../db/Location.h
+
+../io/Log.h
+cassert
+-
+fstream
+-
+list
+-
+Car.h
+../io/Car.h
+Config.h
+../io/Config.h
+Person.h
+../io/Person.h
+Transport.h
+../io/Transport.h
 
 ../manager/Manager.h
 mutex

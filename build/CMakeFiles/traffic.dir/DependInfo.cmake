@@ -5,13 +5,14 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/congxiang/work/TrafficSimulator/Simulator.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/Simulator.cc.o"
-  "/home/congxiang/work/TrafficSimulator/data/Bicycle.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/data/Bicycle.cc.o"
-  "/home/congxiang/work/TrafficSimulator/data/Electrocar.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/data/Electrocar.cc.o"
-  "/home/congxiang/work/TrafficSimulator/data/Graph.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/data/Graph.cc.o"
-  "/home/congxiang/work/TrafficSimulator/data/Map.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/data/Map.cc.o"
-  "/home/congxiang/work/TrafficSimulator/data/Person.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/data/Person.cc.o"
-  "/home/congxiang/work/TrafficSimulator/data/Transport.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/data/Transport.cc.o"
-  "/home/congxiang/work/TrafficSimulator/data/Tricycle.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/data/Tricycle.cc.o"
+  "/home/congxiang/work/TrafficSimulator/db/Bicycle.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/db/Bicycle.cc.o"
+  "/home/congxiang/work/TrafficSimulator/db/Electrocar.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/db/Electrocar.cc.o"
+  "/home/congxiang/work/TrafficSimulator/db/Graph.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/db/Graph.cc.o"
+  "/home/congxiang/work/TrafficSimulator/db/Map.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/db/Map.cc.o"
+  "/home/congxiang/work/TrafficSimulator/db/Person.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/db/Person.cc.o"
+  "/home/congxiang/work/TrafficSimulator/db/Transport.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/db/Transport.cc.o"
+  "/home/congxiang/work/TrafficSimulator/db/Tricycle.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/db/Tricycle.cc.o"
+  "/home/congxiang/work/TrafficSimulator/io/Log.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/io/Log.cc.o"
   "/home/congxiang/work/TrafficSimulator/manager/Manager.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/manager/Manager.cc.o"
   "/home/congxiang/work/TrafficSimulator/random/Random.cc" "/home/congxiang/work/TrafficSimulator/build/CMakeFiles/traffic.dir/random/Random.cc.o"
   )
@@ -21,7 +22,8 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../"
   "../config"
-  "../data"
+  "../db"
+  "../io"
   "../manager"
   "../random"
   )

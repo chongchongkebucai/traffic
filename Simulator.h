@@ -10,6 +10,7 @@
 #include "Enum.h"
 #include "Manager.h"
 #include "Map.h"
+#include "Log.h"
 #include "Random.h"
 #include "Transport.h"
 
@@ -27,6 +28,8 @@ public:
     void move();
     void leave_crossing();
     void display();
+
+    void write_date(int time) const { _log->write(time, _transports); }
 
 private:
     void person_enter_crossing();
@@ -63,6 +66,7 @@ private:
     Random *          _random;
     Map *             _map;
     list<Transport *> _transports;
+    Log              *_log;
 };
 
 inline bool Simulator::is_person(Transport *transport) const {

@@ -15,6 +15,7 @@ public:
     Config(const Config &config) = default;
     ~Config() = default;
 
+    string       get_file_name() const { return _file_name; }
     int          get_row_num() const { return _row_num; }
     int          get_col_num() const { return _col_num; }
     int          get_grid_width() const { return _grid_width; }
@@ -52,6 +53,7 @@ public:
     int          get_lane_width() const { return _lane_width; }
     vector<int> &get_car_ratio() { return _car_ratio; }
 
+    void set_file_name(const string &name) { _file_name = name; }
     void set_row_num(int row_num) { _row_num = row_num; }
     void set_col_num(int col_num) { _col_num = col_num; }
     void set_grid_width(int grid_width) { _grid_width = grid_width; }
@@ -91,6 +93,8 @@ public:
     void set_safe_dist(int dist) { _safe_dist = dist; }
 
 private:
+    string _file_name = ;
+
     int _row_num = 8;
     int _col_num = 200;
     int _grid_width = 0.5;

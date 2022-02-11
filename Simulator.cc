@@ -4,15 +4,17 @@ namespace traffic {
 
 Simulator::Simulator() {
     _config = new Config();
-    _manager = new Manager(_config);
+    _manager = new Manager(this->_config);
     _random = new Random();
     _map = new Map(this->_config);
+    _log = new Log(this->_config);
 }
 Simulator::Simulator(const string &confige_file) {
     this->_config = new Config(confige_file);
     this->_manager = new Manager(this->_config);
     this->_random = new Random();
     this->_map = new Map(this->_config);
+    this->_log = new Log(this->_config);
 }
 
 Simulator::~Simulator() {
@@ -32,6 +34,9 @@ Simulator::~Simulator() {
     }
     if (this->_random) {
         delete _random;
+    }
+    if (this->_log) {
+        delete _log;
     }
 }
 

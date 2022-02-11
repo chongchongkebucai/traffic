@@ -8,6 +8,7 @@ set(CMAKE_CXX_FLAGS_DEBUG " -O0 -Wall -g")
 include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/config)
 include_directories(${PROJECT_SOURCE_DIR}/data)
+include_directories(${PROJECT_SOURCE_DIR}/io)
 include_directories(${PROJECT_SOURCE_DIR}/manager)
 include_directories(${PROJECT_SOURCE_DIR}/random)
 
@@ -22,6 +23,7 @@ data/Tricycle.cc
 data/Electrocar.cc
 data/Transport.cc
 
+io/Log.cc
 manager/Manager.cc
 
 random/Random.cc

@@ -9,7 +9,7 @@ persons_coord_y = []
 cars_coord_x = []
 cars_coord_y = []
  
-file_name = "/home/congxiang/work/TrafficSimulator/data/traffic_data.txt"
+file_name = "/home/congxiang/traffic/data/traffic_data.txt"
 with open(file_name) as fin:
     lines = fin.readlines()
 
@@ -19,16 +19,20 @@ for line in lines:
     coords = line.strip().split(";")
     
     x = int(coords[0].strip().split(" ")[0])
+
     ys = coords[1].strip().split(" ")
-    for i in range(len(ys)):
-        y = int(ys[i])
-        persons_coord_x.append(x)
-        persons_coord_y.append(y)
+    if len(ys) > 1 or (len(ys) == 1 and ys[0] != ''):
+        for i in range(len(ys)):
+            y = int(ys[i])
+            persons_coord_x.append(x)
+            persons_coord_y.append(y)
+    
     ys = coords[2].strip().split(" ")
-    for i in range(len(ys)):
-        y = int(ys[i])
-        cars_coord_x.append(x)
-        cars_coord_y.append(y)
+    if len(ys) > 1 or (len(ys) == 1 and ys[0] != ''):
+        for i in range(len(ys)):
+            y = int(ys[i])
+            cars_coord_x.append(x)
+            cars_coord_y.append(y)
 
 plot.figure(dpi=3000)
 plot.title("person", fontsize=14)

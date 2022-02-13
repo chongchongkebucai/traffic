@@ -8,9 +8,9 @@
 #include "Color.h"
 #include "Config.h"
 #include "Enum.h"
+#include "Log.h"
 #include "Manager.h"
 #include "Map.h"
-#include "Log.h"
 #include "Random.h"
 #include "Transport.h"
 
@@ -28,6 +28,8 @@ public:
     void move();
     void leave_crossing();
     void display();
+
+    bool check() const;
 
     void write_date(int time) const { _log->write(time, _transports); }
 
@@ -66,7 +68,7 @@ private:
     Random *          _random;
     Map *             _map;
     list<Transport *> _transports;
-    Log              *_log;
+    Log *             _log;
 };
 
 inline bool Simulator::is_person(Transport *transport) const {

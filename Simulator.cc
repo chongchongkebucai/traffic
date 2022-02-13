@@ -72,10 +72,15 @@ void Simulator::calc_speed(Person *person) {
     person->set_next_road(road);
 
     auto gap = std::max(cur_gap, std::max(left_gap, right_gap));
-    person->set_next_speed(std::min(person->get_normal_speed(), gap));
+    auto normal_speed = person->get_normal_speed();
+    auto next_speed = std::min(normal_speed, gap);
+    person->set_next_speed(next_speed);
 }
 void Simulator::revise_speed(Person *person) {
     // 是否需要修正
+    if (person->get_next_speed() == 0) {
+        return;
+    }
     Transport *car = left_front_nearest_car(person);
     if (car == nullptr) {
         return;
@@ -144,6 +149,7 @@ void Simulator::calc_speed(Car *car) {
     auto width = _config->get_lane_width();
     auto speed = car->get_speed();
 
+    // 计算车辆部分超出边界的速度
     if (!_map->get_super_way().contains_x(car_box)) {
         car->set_next_road(Road::kMiddle);
         car->set_next_speed(car_box.get_width() + 1);
@@ -183,7 +189,7 @@ void Simulator::update_loc() {
 }
 void Simulator::update_loc(Transport *trans) {
     auto     loc = calc_next_loc(trans);
-    Location max_loc(loc.get_x() + trans->get_width(), loc.get_y() + trans->get_height());
+    Location max_loc(loc.get_x() + trans->get_width() - 1, loc.get_y() + trans->get_height() - 1);
     Rect     rect(loc, max_loc);
 
     if (placeable(rect, trans->get_id())) {
@@ -307,20 +313,30 @@ int Simulator::calc_gap(Transport *transport) const {
     auto      sidewalk_box = _map->get_sidewalk();
     auto      superway_box = _map->get_super_way();
 
-    auto id = _map->get_id(loc);
+    // 但前位置不能超出道路
     if (dir == Direction::kUp || dir == Direction::kDown) {
-        if (!sidewalk_box.contains_x(trans_box) || (id > 0 && id != transport->get_id())) {
+        if (!sidewalk_box.contains_x(trans_box)) {
             return 0;
         }
     } else if (dir == Direction::kRight) {
-        if (!superway_box.contains_y(trans_box) || (id > 0 && id != transport->get_id())) {
+        if (!superway_box.contains_y(trans_box)) {
             return 0;
         }
     }
+    // 当前位置不能有其他交通工具
+    auto ids = _map->get_id(trans_box);
+    for (auto id : ids) {
+        if (id != 0 && id != transport->get_id()) {
+            return 0;
+        }
+    }
+
+    // 求当前位置前方的交通工具
     auto *front_trans = front_transport(transport);
     if (front_trans == nullptr) {
         return INT_MAX;
     }
+
     int dist = distance(transport, front_trans);
 
     if (is_person(transport) && opposite_direction(dir, front_trans->get_direction())) {
@@ -328,7 +344,7 @@ int Simulator::calc_gap(Transport *transport) const {
     } else {
         return dist;
     }
-}
+} // namespace traffic
 
 int Simulator::distance(Transport *from, Transport *to) const {
     auto dir = from->get_direction();
@@ -336,9 +352,15 @@ int Simulator::distance(Transport *from, Transport *to) const {
     auto to_loc = to->get_cur_loc();
 
     if (dir == Direction::kUp || dir == Direction::kDown) {
-        return std::abs(from_loc.get_y() - to_loc.get_y());
+        return std::abs(from_loc.get_y() - to_loc.get_y()) - from->get_height();
     } else {
-        return std::abs(from_loc.get_x() - to_loc.get_x());
+        if (dynamic_cast<Car *>(from) != nullptr && dynamic_cast<Car *>(to) != nullptr) {
+        }
+        auto dist = std::abs(to_loc.get_x() - from_loc.get_x()) - from->get_width();
+        if (dist < 0) {
+            return 0;
+        }
+        return dist;
     }
 }
 
@@ -349,13 +371,16 @@ Transport *Simulator::front_transport(Transport *transport) const {
     auto width = transport->get_width();
     auto height = transport->get_height();
 
+    auto is_trans = [](int id) { return id <= 0; };
+
     do {
         displacement(loc, dir);
         if (!_map->within_boundary(loc)) {
             return nullptr;
         }
-        Rect rect(loc, Location(loc.get_x() + width, loc.get_y() + height));
+        Rect rect(loc, Location(loc.get_x() + width - 1, loc.get_y() + height - 1));
         auto ids = _map->get_id(rect);
+        ids.erase(std::remove_if(ids.begin(), ids.end(), is_trans), ids.end());
         if (ids.size() > 1 || (ids.size() == 1 && ids[0] != cur_id)) {
             Transport *near_trans = nullptr;
             int        min_dist = INT_MAX;
@@ -400,12 +425,13 @@ Transport *Simulator::left_front_nearest_car(Transport *transport) const {
     if (dir == Direction::kUp) {
         min_loc.set_x(loc.get_x() - width);
         min_loc.set_y(loc.get_y());
-        max_loc.set_x(loc.get_x());
+        max_loc.set_x(loc.get_x() - 1);
         max_loc.set_y(loc.get_y() + height);
     } else {
         min_loc.set_x(loc.get_x() - width);
         min_loc.set_y(loc.get_y() - height);
-        max_loc = loc;
+        max_loc.set_x(loc.get_x() - 1);
+        max_loc.set_y(loc.get_y() - 1);
     }
     Rect rect(min_loc, max_loc);
 
@@ -434,9 +460,11 @@ bool Simulator::is_front(Transport *cur_trans, Transport *front_trans) const {
     auto dir = cur_trans->get_direction();
 
     if (dir == Direction::kUp) {
-        return front_box.get_min_y() > cur_box.get_max_y();
+        return front_box.get_max_x() < cur_box.get_min_x() &&
+               front_box.get_min_y() > cur_box.get_max_y();
     } else if (dir == Direction::kDown) {
-        return cur_box.get_min_y() > front_box.get_max_y();
+        return cur_box.get_min_y() > front_box.get_max_y() &&
+               cur_box.get_min_x() > front_box.get_max_x();
     } else {
         assert(0);
     }
@@ -474,34 +502,52 @@ void Simulator::entry_crossing() {
 void Simulator::person_enter_crossing() {
     int  coord_x = 0;
     int  coord_y = 0;
-    auto sidewalk_min_loc = _map->get_sidewalk_min_location();
-    auto sidewalk_max_loc = _map->get_sidewalk_max_location();
-    int  sidewalk_width = _map->get_sidewalk_width();
+    auto min_loc = _map->get_sidewalk_min_location();
+    auto max_loc = _map->get_sidewalk_max_location();
+    int  width = _map->get_sidewalk_width();
 
     auto person_downward_arrival_rate = _config->get_downward_person_arrival_rate();
     if (true == _random->bernoulli_distribution(person_downward_arrival_rate)) {
-        coord_x = _random->uniform_distribution(0, sidewalk_width - 1) + sidewalk_min_loc.get_x();
-        coord_y = sidewalk_max_loc.get_y();
-
         Person *person = _manager->create_person();
-        person->set_cur_loc(Location(coord_x, coord_y));
         person->set_direction(Direction::kDown);
 
-        _transports.emplace_back(person);
-        _map->add_transport(person);
+        int count = 0;
+        do {
+            coord_x = _random->uniform_distribution(0, width - 1) + min_loc.get_x();
+            coord_y = max_loc.get_y();
+            person->set_cur_loc(Location(coord_x, coord_y));
+            if (count++ > 100) {
+                delete person;
+                person = nullptr;
+                break;
+            }
+        } while (_map->have_transport(person->get_cur_loc()));
+        if (person) {
+            _transports.emplace_back(person);
+            _map->add_transport(person);
+        }
     }
 
     auto person_upward_arrvial_rate = _config->get_upward_person_arrival_rate();
     if (true == _random->bernoulli_distribution(person_upward_arrvial_rate)) {
-        coord_x = _random->uniform_distribution(0, sidewalk_width - 1) + sidewalk_min_loc.get_x();
-        coord_y = 0;
-
         Person *person = _manager->create_person();
-        person->set_cur_loc(Location(coord_x, coord_y));
         person->set_direction(Direction::kUp);
 
-        _transports.emplace_back(person);
-        _map->add_transport(person);
+        int count = 0;
+        do {
+            coord_x = _random->uniform_distribution(0, width - 1) + min_loc.get_x();
+            coord_y = 0;
+            person->set_cur_loc(Location(coord_x, coord_y));
+            if (count++ > 100) {
+                delete person;
+                person = nullptr;
+                break;
+            }
+        } while (_map->have_transport(person->get_cur_loc()));
+        if (person) {
+            _transports.emplace_back(person);
+            _map->add_transport(person);
+        }
     }
 }
 void Simulator::car_enter_crossing() {
@@ -589,6 +635,17 @@ void Simulator::display() {
         std::cout << "-";
     }
     std::cout << "\n" << std::endl;
+}
+
+bool Simulator::check() const {
+    for (auto *trans : _transports) {
+        auto loc = trans->get_cur_loc();
+        int  id = _map->get_id(loc);
+        if (trans->get_id() != id) {
+            return false;
+        }
+    }
+    return true;
 }
 
 } // namespace traffic

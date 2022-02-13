@@ -18,8 +18,8 @@ public:
     int      get_min_y() const { return _min_loc.get_y(); }
     int      get_max_x() const { return _max_loc.get_x(); }
     int      get_max_y() const { return _max_loc.get_y(); }
-    int      get_width() const { return _max_loc.get_x() - _min_loc.get_x(); }
-    int      get_height() const { return _max_loc.get_y() - _min_loc.get_y(); }
+    int      get_width() const { return _max_loc.get_x() - _min_loc.get_x() + 1; }
+    int      get_height() const { return _max_loc.get_y() - _min_loc.get_y() + 1; }
 
     // getter
     void set_min_location(const Location &loc) { _min_loc = loc; }

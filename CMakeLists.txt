@@ -3,7 +3,7 @@ project(TrafficSimulator)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_BUILD_TYPE "Debug")
-set(CMAKE_CXX_FLAGS_DEBUG " -O0 -Wall -g")
+set(CMAKE_CXX_FLAGS " -O0 -Wall -g")
 
 include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/config)

@@ -1,54 +1,79 @@
 import matplotlib.pyplot as plot
 
-times = []
-person_coords = []
-car_coords = []
+class Trans:
+    def __init__(self, index, x, y):
+        self.index = index
+        self.x = x
+        self.y = y
+    
+    def __str__(self):
+        return "(%d, %d)" % (self.x, self.y)
 
-persons_coord_x = []
-persons_coord_y = []
-cars_coord_x = []
-cars_coord_y = []
- 
-file_name = "/home/congxiang/traffic/data/traffic_data.txt"
+file_name = "/home/congxiang/work/TrafficSimulator/data/traffic_data.txt"
+color_table = ["#00FF00", "#0000FF", "#FF0000"]
+length = len(color_table)
+
+persons = []
+cars = []
+
 with open(file_name) as fin:
     lines = fin.readlines()
 
 for line in lines:
     if line == '\n':
         continue
-    coords = line.strip().split(";")
+    data = line.strip().split(";")
     
-    x = int(coords[0].strip().split(" ")[0])
+    y = int(data[0].strip().split(" ")[0])
+    
+    persons_data = data[1].strip().split(":")
+    for i in range(len(persons_data)):
+        if persons_data[i] != '':
+            person_data = persons_data[i].strip().split(" ")
+            
+            person = Trans(int(person_data[0]), int(person_data[1]), y)
+            persons.append(person)
 
-    ys = coords[1].strip().split(" ")
-    if len(ys) > 1 or (len(ys) == 1 and ys[0] != ''):
-        for i in range(len(ys)):
-            y = int(ys[i])
-            persons_coord_x.append(x)
-            persons_coord_y.append(y)
-    
-    ys = coords[2].strip().split(" ")
-    if len(ys) > 1 or (len(ys) == 1 and ys[0] != ''):
-        for i in range(len(ys)):
-            y = int(ys[i])
-            cars_coord_x.append(x)
-            cars_coord_y.append(y)
+    cars_data = data[2].strip().split(":")
+    for i in range(len(cars_data)):
+        if cars_data[i] != '':
+            car_data = cars_data[i].strip().split(" ")
+
+            car = Trans(int(car_data[0]), int(car_data[1]), y)
+            cars.append(car)
+
+coords_x = []
+coords_y = []
+colors = []
+
+for person in persons:
+    coords_x.append(person.x)
+    coords_y.append(person.y)
+    color = color_table[person.index % length]
+    colors.append(color)
 
 plot.figure(dpi=3000)
 plot.title("person", fontsize=14)
-plot.xlabel("time", fontsize=14)
-plot.ylabel("coord", fontsize=14)
+plot.xlabel("coord", fontsize=14)
+plot.ylabel("time", fontsize=14)
 plot.tick_params(axis="both", which="major", labelsize=7)
-plot.scatter(persons_coord_x, persons_coord_y, color='b', edgecolor="none", s=0.2)
+plot.scatter(coords_x, coords_y, c=colors, edgecolor="none", s=0.5)
 plot.savefig("person.png")
 plot.close('all')
 
+
+for car in cars:
+    coords_x.append(car.x)
+    coords_y.append(car.y)
+    color = color_table[car.index % length]
+    colors.append(color)
+
 plot.figure(dpi=3000)
 plot.title("car", fontsize=14)
-plot.xlabel("time", fontsize=14)
-plot.ylabel("coord", fontsize=14)
+plot.xlabel("coord", fontsize=14)
+plot.ylabel("time", fontsize=14)
 plot.tick_params(axis="both", which="major", labelsize=7)
-plot.scatter(cars_coord_x, cars_coord_y, color='r', edgecolor="none", s=0.2)
+plot.scatter(coords_x, coords_y, c=colors, edgecolor="none", s=0.5)
 plot.savefig("car.png")
 plot.close('all')
 

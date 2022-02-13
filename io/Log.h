@@ -8,6 +8,9 @@
 #include "Config.h"
 #include "Person.h"
 #include "Transport.h"
+#include "Bicycle.h"
+#include "Tricycle.h"
+#include "Electrocar.h"
 
 namespace traffic {
 using std::list;

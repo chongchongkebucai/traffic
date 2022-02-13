@@ -93,8 +93,7 @@ public:
     void set_safe_dist(int dist) { _safe_dist = dist; }
 
 private:
-    string _file_name = "/home/congxiang/work/TrafficSimulator/data/traffic_data.txt";
-    // "E:\\congxiang\\data.txt";
+    string _file_name = "/home/congxiang/traffic/data/traffic_data.txt";
 
     int _row_num = 8;
     int _col_num = 200;

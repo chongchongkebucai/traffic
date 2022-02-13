@@ -113,8 +113,8 @@ private:
     int _tricycle_width = 5;
     int _tricycle_height = 2;
 
-    double      _downward_person_arrival_rate = 0.1;
-    double      _upward_person_arrival_rate = 0.1;
+    double      _downward_person_arrival_rate = 1;
+    double      _upward_person_arrival_rate = 1;
     double      _car_arrival_rate = 1;
     double      _moderating_rate = 0.3;
     vector<int> _car_ratio = {14, 5, 1};

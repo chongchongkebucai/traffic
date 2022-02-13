@@ -115,9 +115,7 @@ vector<int> Map::get_id(const Rect &rect) const {
 
             if (within_boundary(Location(cur_col, cur_row))) {
                 int id = _graph->get_value(cur_row, cur_col);
-                if (id > 0) {
-                    ids.insert(id);
-                }
+                ids.insert(id);
             }
         }
     }

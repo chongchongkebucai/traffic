@@ -94,6 +94,7 @@ public:
 
 private:
     string _file_name = "/home/congxiang/work/TrafficSimulator/data/traffic_data.txt";
+    // "E:\\congxiang\\data.txt";
 
     int _row_num = 8;
     int _col_num = 200;
@@ -113,9 +114,9 @@ private:
     int _tricycle_width = 5;
     int _tricycle_height = 2;
 
-    double      _downward_person_arrival_rate = 0.5;
-    double      _upward_person_arrival_rate = 0.5;
-    double      _car_arrival_rate = 0.5;
+    double      _downward_person_arrival_rate = 1;
+    double      _upward_person_arrival_rate = 1;
+    double      _car_arrival_rate = 1;
     double      _moderating_rate = 0.3;
     vector<int> _car_ratio = {14, 5, 1};
 

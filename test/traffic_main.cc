@@ -13,6 +13,8 @@ int main() {
         simulator.display();
         simulator.leave_crossing();
 
+        simulator.check();
+
         count++;
         if (count > 1000) {
             exit(0);

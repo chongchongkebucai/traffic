@@ -1,4 +1,4 @@
-file_name = "/home/congxiang/work/TrafficSimulator/data/delay.txt"
+file_name = "/home/congxiang/traffic/data/delay.txt"
 
 with open(file_name) as fin:
     lines = fin.readlines()

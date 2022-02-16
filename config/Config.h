@@ -95,8 +95,8 @@ public:
     void set_safe_dist(int dist) { _safe_dist = dist; }
 
 private:
-    string _time_space_file = "/home/congxiang/work/TrafficSimulator/data/time_space.txt";
-    string _delay_file = "/home/congxiang/work/TrafficSimulator/data/delay.txt";
+    string _time_space_file = "/home/congxiang/traffic/data/time_space.txt";
+    string _delay_file = "/home/congxiang/traffic/data/delay.txt";
 
     int _row_num = 8;
     int _col_num = 190;

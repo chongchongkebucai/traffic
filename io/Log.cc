@@ -23,12 +23,12 @@ Log::~Log() {
     _delay_out.close();
 }
 
-void Log::write(int time, const list<Transport *> &transports) {
+void Log::write_coord(int time, const list<Transport *> &transports) {
     _time_space_out << time << " ; ";
 
     for (auto trans : transports) {
         if (dynamic_cast<Person *>(trans) != nullptr) {
-            write(trans);
+            write_coord(trans);
             _time_space_out << ": ";
         }
     }
@@ -36,14 +36,14 @@ void Log::write(int time, const list<Transport *> &transports) {
 
     for (auto trans : transports) {
         if (dynamic_cast<Car *>(trans) != nullptr) {
-            write(trans);
+            write_coord(trans);
             _time_space_out << ": ";
         }
     }
     _time_space_out << std::endl;
 }
 
-void Log::write(Transport *trans) {
+void Log::write_coord(Transport *trans) {
     if (dynamic_cast<Person *>(trans) != nullptr) {
         auto dir = trans->get_direction();
         _time_space_out << (dir == Direction::kUp ? 0 : 1) << " ";
@@ -60,6 +60,17 @@ void Log::write(Transport *trans) {
     } else {
         assert(0);
     }
+}
+
+void Log::write_delay(Transport *trans) {
+    int type;
+    if (dynamic_cast<Person *>(trans) != nullptr) {
+        type = 1;
+    } else if (dynamic_cast<Car *>(trans) != nullptr) {
+        type = 2;
+    }
+    int time = trans->get_time();
+    _delay_out << type << " " << time << std::endl;
 }
 
 } // namespace traffic

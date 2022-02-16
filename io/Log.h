@@ -23,10 +23,10 @@ public:
     Log(const Log &) = default;
     ~Log();
 
-    void write(int time, const list<Transport *> &transports);
-    void write(Transport *trans);
+    void write_coord(int time, const list<Transport *> &transports);
+    void write_coord(Transport *trans);
 
-    void write_delay(int time) { _delay_out << time << std::endl; }
+    void write_delay(Transport *trans);
 
 private:
     Config * _config;

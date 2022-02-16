@@ -32,7 +32,7 @@ public:
 
     bool check() const;
 
-    void write_date(int time) const { _log->write(time, _transports); }
+    void write_date(int time) const { _log->write_coord(time, _transports); }
 
 private:
     void person_enter_crossing();

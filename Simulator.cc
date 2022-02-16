@@ -592,7 +592,7 @@ void Simulator::leave_crossing() {
         auto loc = (*iter)->get_cur_loc();
         if (_map->within_boundary(loc) == false) {
             auto *trans = *iter;
-            _log->write_delay(trans->get_time());
+            _log->write_delay(trans);
             _manager->destroy_transport(trans);
             iter = _transports.erase(iter);
         } else {

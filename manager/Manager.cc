@@ -22,6 +22,7 @@ Person *Manager::create_person() {
     person->set_max_speed(_config->get_person_max_speed());
     person->set_normal_speed(_config->get_person_normal_speed());
     person->set_once_crossing(_random.bernoulli_distribution(_config->get_once_crossing_rate()));
+    person->set_time(0);
 
     return person;
 }
@@ -52,6 +53,7 @@ Car *Manager::create_car() {
     }
     car->set_direction(Direction::kRight);
     car->set_accelerated_speed(_config->get_accelerated_speed());
+    car->set_time(0);
     return car;
 }
 

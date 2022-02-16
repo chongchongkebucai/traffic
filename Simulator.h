@@ -27,6 +27,7 @@ public:
     void entry_crossing();
     void move();
     void leave_crossing();
+    void update_time();
     void display();
 
     bool check() const;

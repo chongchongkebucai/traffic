@@ -591,7 +591,9 @@ void Simulator::leave_crossing() {
     for (auto iter = _transports.begin(); iter != _transports.end();) {
         auto loc = (*iter)->get_cur_loc();
         if (_map->within_boundary(loc) == false) {
-            _manager->destroy_transport(*iter);
+            auto *trans = *iter;
+            _log->write_delay(trans->get_time());
+            _manager->destroy_transport(trans);
             iter = _transports.erase(iter);
         } else {
             ++iter;
@@ -635,6 +637,12 @@ void Simulator::display() {
         std::cout << "-";
     }
     std::cout << "\n" << std::endl;
+}
+
+void Simulator::update_time() {
+    for (auto *trans : _transports) {
+        trans->set_time(trans->get_time() + 1);
+    }
 }
 
 bool Simulator::check() const {

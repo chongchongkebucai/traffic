@@ -9,6 +9,7 @@ int main() {
     int count = 0;
     while (1) {
         simulator.move();
+        simulator.update_time();
         simulator.entry_crossing();
         simulator.display();
         simulator.leave_crossing();

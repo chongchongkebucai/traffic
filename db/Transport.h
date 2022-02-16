@@ -26,6 +26,7 @@ public:
     int       get_max_speed() const { return _max_speed; }
     int       get_accelerated_speed() const { return _acc_speed; }
     Road      get_next_road() const { return _next_road; }
+    int       get_time() const { return _time; }
 
     // setter
     void set_id(int id) { _id = id; }
@@ -40,6 +41,7 @@ public:
     void set_max_speed(int max_speed) { _max_speed = max_speed; }
     void set_accelerated_speed(int acc_speed) { _acc_speed = acc_speed; }
     void set_next_road(Road road) { _next_road = road; }
+    void set_time(int time) { _time = time; }
 
     // operator
     virtual void update_next_loc();
@@ -59,6 +61,7 @@ protected:
     int       _next_speed;
     int       _max_speed;
     int       _acc_speed;
+    int       _time;
 };
 
 inline void Transport::set_cur_loc(int x, int y) {

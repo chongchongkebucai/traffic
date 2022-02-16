@@ -96,12 +96,12 @@ private:
     string _file_name = "/home/congxiang/traffic/data/traffic_data.txt";
 
     int _row_num = 8;
-    int _col_num = 200;
+    int _col_num = 190;
     int _grid_width = 0.5;
     int _grid_height = 0.5;
-    int _super_way_width = 100;
+    int _super_way_width = 190;
     int _super_way_height = 8;
-    int _sidewalk_width = 50;
+    int _sidewalk_width = 100;
     int _sidewalk_height = 16;
 
     int _person_width = 1;
@@ -113,9 +113,9 @@ private:
     int _tricycle_width = 5;
     int _tricycle_height = 2;
 
-    double      _downward_person_arrival_rate = 1;
-    double      _upward_person_arrival_rate = 1;
-    double      _car_arrival_rate = 1;
+    double      _downward_person_arrival_rate = 0.5;
+    double      _upward_person_arrival_rate = 0.1;
+    double      _car_arrival_rate = 0.5;
     double      _moderating_rate = 0.3;
     vector<int> _car_ratio = {14, 5, 1};
 

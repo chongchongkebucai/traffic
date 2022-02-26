@@ -97,16 +97,16 @@ public:
     void set_retrograde_car_ratio(const vector<int> &ratio) { _retrograde_car_ratio = ratio; }
 
 private:
-    string _time_space_file = "/home/congxiang/work/TrafficSimulator/data/time_space.txt";
-    string _delay_file = "/home/congxiang/work/TrafficSimulator/data/delay.txt";
+    string _time_space_file = "/home/congxiang/traffic/data/time_space.txt";
+    string _delay_file = "/home/congxiang/traffic/data/delay.txt";
 
     int _row_num = 8;
-    int _col_num = 200;
+    int _col_num = 190;
     int _grid_width = 0.5;
     int _grid_height = 0.5;
-    int _super_way_width = 100;
+    int _super_way_width = 190;
     int _super_way_height = 8;
-    int _sidewalk_width = 50;
+    int _sidewalk_width = 100;
     int _sidewalk_height = 16;
 
     int _person_width = 1;
@@ -118,9 +118,9 @@ private:
     int _tricycle_width = 5;
     int _tricycle_height = 2;
 
-    double      _downward_person_arrival_rate = 0.2;
-    double      _upward_person_arrival_rate = 0.2;
-    double      _car_arrival_rate = 0.2;
+    double      _downward_person_arrival_rate = 0.5;
+    double      _upward_person_arrival_rate = 0.1;
+    double      _car_arrival_rate = 0.5;
     double      _moderating_rate = 0.3;
     vector<int> _car_ratio = {14, 5, 1};
     vector<int> _retrograde_car_ratio = {4, 1};

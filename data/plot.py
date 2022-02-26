@@ -9,7 +9,7 @@ class Trans:
     def __str__(self):
         return "(%d, %d)" % (self.x, self.y)
 
-file_name = "/home/congxiang/work/TrafficSimulator/data/time_space.txt"
+file_name = "/home/congxiang/traffic/data/time_space.txt"
 color_table = ["#00FF00", "#0000FF", "#FF0000"]
 length = len(color_table)
 
@@ -61,7 +61,9 @@ plot.scatter(coords_x, coords_y, c=colors, edgecolor="none", s=0.5)
 plot.savefig("person.png")
 plot.close('all')
 
-
+coords_x.clear()
+coords_y.clear()
+colors.clear()
 for car in cars:
     coords_x.append(car.x)
     coords_y.append(car.y)

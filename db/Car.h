@@ -9,7 +9,7 @@ class Car : public Transport {
 public:
     Car() {
         _acc_speed = 1;
-        _speed = 5;
+        _speed = 12;
     }
     Car(const Car &car) = default;
     virtual ~Car() = default;

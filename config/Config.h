@@ -35,7 +35,8 @@ public:
     int          get_tricycle_height() const { return _tricycle_height; }
     double       get_downward_person_arrival_rate() const { return _downward_person_arrival_rate; }
     double       get_upward_person_arrival_rate() const { return _upward_person_arrival_rate; }
-    double       get_car_arrival_rate() const { return _car_arrival_rate; }
+    double       get_left_car_arrival_rate() const { return _left_car_arrival_rate; }
+    double       get_right_car_arrival_rate() const { return _right_car_arrival_rate; }
     double       get_moderating_rate() const { return _moderating_rate; }
     double       get_once_crossing_rate() const { return _once_crossing_rate; }
     int          get_upper_bound_time() const { return _upper_bound_time; }
@@ -84,7 +85,8 @@ public:
     void set_lower_bound_time(int time) { _lower_bound_time = time; }
     void set_upper_bound_dist(int dist) { _upper_bound_dist = dist; }
     void set_lower_bound_dist(int dist) { _lower_bound_dist = dist; }
-    void set_car_arrival_rate(double car_arrival_rate) { _car_arrival_rate = car_arrival_rate; }
+    void set_left_car_arrival_rate(double arrival_rate) { _left_car_arrival_rate = arrival_rate; }
+    void set_right_car_arrival_rate(double arrival_rate) { _right_car_arrival_rate = arrival_rate; }
     void set_moderating_rate(double moderating_rate) { _moderating_rate = moderating_rate; }
     void set_car_ratio(vector<int> car_ratio) { _car_ratio = car_ratio; }
     void set_person_normal_speed(int speed) { _person_normal_speed = speed; }
@@ -97,8 +99,8 @@ public:
     void set_retrograde_car_ratio(const vector<int> &ratio) { _retrograde_car_ratio = ratio; }
 
 private:
-    string _time_space_file = "/home/congxiang/traffic/data/time_space.txt";
-    string _delay_file = "/home/congxiang/traffic/data/delay.txt";
+    string _time_space_file = "/home/congxiang/work/TrafficSimulator/data/time_space.txt";
+    string _delay_file = "/home/congxiang/work/TrafficSimulator/data/delay.txt";
 
     int _row_num = 8;
     int _col_num = 190;
@@ -118,9 +120,10 @@ private:
     int _tricycle_width = 5;
     int _tricycle_height = 2;
 
-    double      _downward_person_arrival_rate = 0.5;
+    double      _downward_person_arrival_rate = 0.3;
     double      _upward_person_arrival_rate = 0.1;
-    double      _car_arrival_rate = 0.5;
+    double      _left_car_arrival_rate = 0.3;
+    double      _right_car_arrival_rate = 0.1;
     double      _moderating_rate = 0.3;
     vector<int> _car_ratio = {14, 5, 1};
     vector<int> _retrograde_car_ratio = {4, 1};

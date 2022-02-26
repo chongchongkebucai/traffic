@@ -235,7 +235,6 @@ Location Simulator::calc_next_loc(Transport *transport) const {
     Road      road = transport->get_next_road();
     auto      trans_width = transport->get_width();
     auto      trans_height = transport->get_height();
-    auto      lane_width = _config->get_lane_width();
 
     if (is_person(transport)) {
         if ((dir == Direction::kUp && road == Road::kLeft) ||
@@ -636,8 +635,9 @@ void Simulator::car_enter_crossing() {
     auto super_way_min_loc = _map->get_super_way_min_location();
     int  super_way_height = _map->get_super_way_height();
 
-    auto car_arrival_rate = _config->get_car_arrival_rate();
-    if (true == _random->bernoulli_distribution(car_arrival_rate)) {
+    auto left_car_arrival_rate = _config->get_left_car_arrival_rate();
+    auto right_car_arrival_rate = _config->get_right_car_arrival_rate();
+    if (true == _random->bernoulli_distribution(left_car_arrival_rate)) {
         Car *car = _manager->create_car(Direction::kRight);
         Rect bounding_box;
         int  count = 1;
@@ -665,7 +665,7 @@ void Simulator::car_enter_crossing() {
         }
     }
 
-    if (true == _random->bernoulli_distribution(car_arrival_rate)) {
+    if (true == _random->bernoulli_distribution(right_car_arrival_rate)) {
         Car *car = _manager->create_car(Direction::kLeft);
         Rect bounding_box;
         int  count = 1;
@@ -725,15 +725,19 @@ void Simulator::display() {
             } else {
                 int   msg = val % 10;
                 auto *trans = find_transport(val);
+                auto  dir = trans->get_direction();
                 if (dynamic_cast<Person *>(trans) != nullptr) {
-                    auto dir = trans->get_direction();
                     if (dir == Direction::kUp) {
                         std::cout << GREEN << msg << RESET;
                     } else if (dir == Direction::kDown) {
                         std::cout << BLUE << msg << RESET;
                     }
                 } else if (dynamic_cast<Car *>(trans) != nullptr) {
-                    std::cout << RED << msg << RESET;
+                    if (dir == Direction::kRight) {
+                        std::cout << RED << msg << RESET;
+                    } else if (dir == Direction::kLeft) {
+                        std::cout << PURPLE << msg << RESET;
+                    }
                 }
             }
         }

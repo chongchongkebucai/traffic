@@ -12,6 +12,7 @@
 #include "Electrocar.h"
 #include "Bicycle.h"
 #include "Tricycle.h"
+#include "Enum.h"
 
 namespace traffic {
 
@@ -23,7 +24,7 @@ public:
     ~Manager() = default;
 
     Person *create_person();
-    Car *   create_car();
+    Car *   create_car(Direction dir);
     void    destroy_transport(Transport *transport) const;
 
 private:

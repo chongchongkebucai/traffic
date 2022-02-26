@@ -31,6 +31,10 @@ public:
     bool contains_x(const Rect &rect) const;
     bool contains_y(const Rect &rect) const;
 
+    Rect move_x(int x);
+    Rect move_y(int y);
+    Rect move(int x, int y);
+
 private:
     Location _min_loc;
     Location _max_loc;
@@ -51,5 +55,24 @@ inline bool Rect::contains_y(const Rect &rect) const {
 }
 
 inline bool Rect::contains(const Rect &rect) const { return contains_x(rect) && contains_y(rect); }
+
+inline Rect Rect::move_x(int x) {
+    _min_loc.move_x(x);
+    _max_loc.move_x(x);
+    return Rect(_min_loc, _max_loc);
+}
+
+inline Rect Rect::move_y(int y) {
+    _min_loc.move_y(y);
+    _max_loc.move_y(y);
+
+    return Rect(_min_loc, _max_loc);
+}
+
+inline Rect Rect::move(int x, int y) {
+    move_x(x);
+    move_y(y);
+    return Rect(_min_loc, _max_loc);
+}
 
 } // namespace traffic

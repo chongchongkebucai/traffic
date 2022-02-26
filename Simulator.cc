@@ -81,9 +81,25 @@ void Simulator::revise_speed(Person *person) {
     if (person->get_next_speed() == 0) {
         return;
     }
-    Transport *car = left_front_nearest_car(person);
-    if (car == nullptr) {
+    Transport *car1 = left_front_nearest_car(person);
+    Transport *car2 = right_front_nearest_car(person);
+    Transport *car = nullptr;
+    if (!car1 && !car2) {
         return;
+    } else if (!car1 && car2) {
+        car = car2;
+    } else if (car1 && !car2) {
+        car = car1;
+    } else {
+        auto time1 =
+            distance(car1, person) / (car1->get_next_speed() == 0 ? 1 : car1->get_next_speed());
+        auto time2 =
+            distance(car2, person) / (car2->get_next_speed() == 0 ? 1 : car2->get_next_speed());
+        if (time1 < time2) {
+            car = car1;
+        } else {
+            car = car2;
+        }
     }
 
     // 如何修正
@@ -108,7 +124,7 @@ void Simulator::once_cross(Person *person, Transport *car) {
 
     if (time >= up_bound_time) {
         return;
-    } else if ((low_bound_time <= time && time < up_bound_time)) {
+    } else if (low_bound_time <= time && time < up_bound_time) {
         if ((dir == Direction::kUp && _random->bernoulli_distribution(upward_pass_rate)) ||
             (dir == Direction::kDown && _random->bernoulli_distribution(downward_pass_rate))) {
             person->set_next_speed(person->get_max_speed());
@@ -218,6 +234,7 @@ Location Simulator::calc_next_loc(Transport *transport) const {
     auto      speed = transport->get_next_speed();
     Road      road = transport->get_next_road();
     auto      trans_width = transport->get_width();
+    auto      trans_height = transport->get_height();
     auto      lane_width = _config->get_lane_width();
 
     if (is_person(transport)) {
@@ -229,10 +246,14 @@ Location Simulator::calc_next_loc(Transport *transport) const {
             displacement(loc, Direction::kRight, trans_width);
         }
     } else {
-        if (road == Road::kLeft) {
-            displacement(loc, Direction::kUp, lane_width);
-        } else if (road == Road::kRight) {
-            displacement(loc, Direction::kDown, lane_width);
+        if (dir == Direction::kRight && road == Road::kLeft) {
+            displacement(loc, Direction::kUp, trans_height);
+        } else if (dir == Direction::kRight && road == Road::kRight) {
+            displacement(loc, Direction::kDown, trans_height);
+        } else if (dir == Direction::kLeft && road == Road::kLeft) {
+            displacement(loc, Direction::kUp, trans_height);
+        } else if (dir == Direction::kLeft && road == Road::kRight) {
+            displacement(loc, Direction::kDown, trans_height);
         }
     }
 
@@ -243,6 +264,8 @@ Location Simulator::calc_next_loc(Transport *transport) const {
 Road Simulator::select_road(int left_gap, int cur_gap, int right_gap, Transport *trans) const {
     auto dir = trans->get_direction();
     auto loc = trans->get_cur_loc();
+    auto rect = trans->get_bounding_box();
+    auto height = trans->get_height();
 
     if (cur_gap >= std::max(left_gap, right_gap)) {
         return Road::kMiddle;
@@ -269,12 +292,21 @@ Road Simulator::select_road(int left_gap, int cur_gap, int right_gap, Transport 
             return Road::kRight;
         }
     } else if (dir == Direction::kRight) {
-        displacement(loc, Direction::kUp, trans->get_height());
-        if (false == superway_rect.contains(trans->get_bounding_box())) {
+        displacement(loc, Direction::kUp, height);
+        if (false == superway_rect.contains(trans->get_bounding_box().move_y(height))) {
             return Road::kRight;
         }
         displacement(loc, Direction::kDown, trans->get_height() * 2);
-        if (false == superway_rect.contains(trans->get_bounding_box())) {
+        if (false == superway_rect.contains(trans->get_bounding_box().move_y(-1 * height))) {
+            return Road::kLeft;
+        }
+    } else if (dir == Direction::kLeft) {
+        displacement(loc, Direction::kUp, trans->get_height());
+        if (false == superway_rect.contains(rect.move_y(height))) {
+            return Road::kRight;
+        }
+        displacement(loc, Direction::kDown, trans->get_height() * 2);
+        if (false == superway_rect.contains(rect.move_y(-2 * height))) {
             return Road::kLeft;
         }
     }
@@ -291,16 +323,20 @@ Road Simulator::select_road(int left_gap, int cur_gap, int right_gap, Transport 
                 return Road::kLeft;
             } else if (dir == Direction::kDown) {
                 return Road::kRight;
-            } else {
+            } else if (dir == Direction::kRight) {
                 return Road::kLeft;
+            } else {
+                return Road::kRight;
             }
         } else {
             if (dir == Direction::kUp) {
                 return Road::kRight;
             } else if (dir == Direction::kDown) {
                 return Road::kLeft;
-            } else {
+            } else if (dir == Direction::kRight) {
                 return Road::kRight;
+            } else {
+                return Road::kLeft;
             }
         }
     }
@@ -318,7 +354,7 @@ int Simulator::calc_gap(Transport *transport) const {
         if (!sidewalk_box.contains_x(trans_box)) {
             return 0;
         }
-    } else if (dir == Direction::kRight) {
+    } else {
         if (!superway_box.contains_y(trans_box)) {
             return 0;
         }
@@ -339,12 +375,12 @@ int Simulator::calc_gap(Transport *transport) const {
 
     int dist = distance(transport, front_trans);
 
-    if (is_person(transport) && opposite_direction(dir, front_trans->get_direction())) {
+    if (opposite_direction(dir, front_trans->get_direction())) {
         return dist / 2;
     } else {
         return dist;
     }
-} // namespace traffic
+}
 
 int Simulator::distance(Transport *from, Transport *to) const {
     auto dir = from->get_direction();
@@ -354,7 +390,13 @@ int Simulator::distance(Transport *from, Transport *to) const {
     if (dir == Direction::kUp || dir == Direction::kDown) {
         return std::abs(from_loc.get_y() - to_loc.get_y()) - from->get_height();
     } else {
-        if (dynamic_cast<Car *>(from) != nullptr && dynamic_cast<Car *>(to) != nullptr) {
+        if (dynamic_cast<Car *>(from) != nullptr && dynamic_cast<Person *>(to) != nullptr &&
+            from->get_direction() == Direction::kLeft) {
+            auto dist = std::abs(to_loc.get_x() - from_loc.get_x());
+            if (dist < 0) {
+                return 0;
+            }
+            return dist;
         }
         auto dist = std::abs(to_loc.get_x() - from_loc.get_x()) - from->get_width();
         if (dist < 0) {
@@ -424,13 +466,53 @@ Transport *Simulator::left_front_nearest_car(Transport *transport) const {
     Location max_loc;
     if (dir == Direction::kUp) {
         min_loc.set_x(loc.get_x() - width);
-        min_loc.set_y(loc.get_y());
+        min_loc.set_y(loc.get_y() + 1);
         max_loc.set_x(loc.get_x() - 1);
         max_loc.set_y(loc.get_y() + height);
     } else {
         min_loc.set_x(loc.get_x() - width);
         min_loc.set_y(loc.get_y() - height);
         max_loc.set_x(loc.get_x() - 1);
+        max_loc.set_y(loc.get_y() - 1);
+    }
+    Rect rect(min_loc, max_loc);
+
+    vector<int> ids = _map->get_id(rect);
+
+    Transport *near_car = nullptr;
+    int        min_time = INT_MAX;
+    for (auto id : ids) {
+        Transport *near_trans = find_transport(id);
+        if (is_car(near_trans) && is_front(transport, near_trans)) {
+            int    dist = std::abs(near_trans->get_cur_loc().get_x() - loc.get_x());
+            int    speed = near_trans->get_speed();
+            double time = 1.0 * dist / speed;
+            if (time < min_time) {
+                min_time = time;
+                near_car = near_trans;
+            }
+        }
+    }
+    return near_car;
+}
+
+Transport *Simulator::right_front_nearest_car(Transport *transport) const {
+    auto      loc = transport->get_cur_loc();
+    Direction dir = transport->get_direction();
+    int       width = _config->get_safe_dist();
+    int       height = transport->get_next_speed();
+
+    Location min_loc;
+    Location max_loc;
+    if (dir == Direction::kUp) {
+        min_loc.set_x(loc.get_x() + 1);
+        min_loc.set_y(loc.get_y() + 1);
+        max_loc.set_x(loc.get_x() + width);
+        max_loc.set_y(loc.get_y() + height);
+    } else {
+        min_loc.set_x(loc.get_x() + 1);
+        min_loc.set_y(loc.get_y() - height);
+        max_loc.set_x(loc.get_x() + width);
         max_loc.set_y(loc.get_y() - 1);
     }
     Rect rect(min_loc, max_loc);
@@ -555,44 +637,71 @@ void Simulator::car_enter_crossing() {
     int  super_way_height = _map->get_super_way_height();
 
     auto car_arrival_rate = _config->get_car_arrival_rate();
-    if (false == _random->bernoulli_distribution(car_arrival_rate)) {
-        return;
+    if (true == _random->bernoulli_distribution(car_arrival_rate)) {
+        Car *car = _manager->create_car(Direction::kRight);
+        Rect bounding_box;
+        int  count = 1;
+
+        do {
+            int coord_x = 0;
+            int coord_y =
+                _random->uniform_distribution(0, super_way_height - 3) + super_way_min_loc.get_y();
+            if (coord_y % 2 == 1) {
+                coord_y--;
+            }
+            car->set_cur_loc(Location(coord_x, coord_y));
+            bounding_box = car->get_bounding_box();
+
+            if (count++ > 1000) {
+                delete car;
+                car = nullptr;
+                break;
+            }
+        } while (_map->have_transport(bounding_box));
+
+        if (car) {
+            _transports.emplace_back(car);
+            _map->add_transport(car);
+        }
     }
 
-    Car *car = _manager->create_car();
-    car->set_direction(Direction::kRight);
-    Rect bounding_box;
-    int  count = 1;
+    if (true == _random->bernoulli_distribution(car_arrival_rate)) {
+        Car *car = _manager->create_car(Direction::kLeft);
+        Rect bounding_box;
+        int  count = 1;
 
-    do {
-        int coord_x = 0;
-        int coord_y =
-            _random->uniform_distribution(0, super_way_height - 3) + super_way_min_loc.get_y();
-        if (coord_y % 2 == 1) {
-            coord_y--;
+        do {
+            int coord_x = _config->get_super_way_width() - car->get_width() - 1;
+            int coord_y =
+                _random->uniform_distribution(0, super_way_height - 3) + super_way_min_loc.get_y();
+            if (coord_y % 2 == 1) {
+                coord_y--;
+            }
+            car->set_cur_loc(Location(coord_x, coord_y));
+            bounding_box = car->get_bounding_box();
+
+            if (count++ > 1000) {
+                delete car;
+                car = nullptr;
+                break;
+            }
+        } while (_map->have_transport(bounding_box));
+
+        if (car) {
+            _transports.emplace_back(car);
+            _map->add_transport(car);
         }
-        car->set_cur_loc(Location(coord_x, coord_y));
-        bounding_box = car->get_bounding_box();
-
-        if (count++ > 1000) {
-            delete car;
-            car = nullptr;
-            break;
-        }
-    } while (_map->have_transport(bounding_box));
-
-    if (car) {
-        _transports.emplace_back(car);
-        _map->add_transport(car);
     }
 }
 
 void Simulator::leave_crossing() {
     for (auto iter = _transports.begin(); iter != _transports.end();) {
         auto loc = (*iter)->get_cur_loc();
+
         if (_map->within_boundary(loc) == false) {
             auto *trans = *iter;
             _log->write_delay(trans);
+            _map->clear_transport(trans);
             _manager->destroy_transport(trans);
             iter = _transports.erase(iter);
         } else {

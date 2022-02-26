@@ -53,6 +53,7 @@ public:
     int          get_safe_dist() const { return _safe_dist; }
     int          get_lane_width() const { return _lane_width; }
     vector<int> &get_car_ratio() { return _car_ratio; }
+    vector<int> &get_retrograde_car_ratio() { return _retrograde_car_ratio; }
 
     void set_time_space_file(const string &file) { _time_space_file = file; }
     void set_delay_file(const string &file) { _delay_file = file; }
@@ -93,6 +94,7 @@ public:
     void set_tricycle_max_speed(int max_speed) { _tricycle_max_speed = max_speed; }
     void set_accelerated_speed(int accelerated_speed) { _accelerated_speed = accelerated_speed; }
     void set_safe_dist(int dist) { _safe_dist = dist; }
+    void set_retrograde_car_ratio(const vector<int> &ratio) { _retrograde_car_ratio = ratio; }
 
 private:
     string _time_space_file = "/home/congxiang/work/TrafficSimulator/data/time_space.txt";
@@ -116,11 +118,12 @@ private:
     int _tricycle_width = 5;
     int _tricycle_height = 2;
 
-    double      _downward_person_arrival_rate = 1;
-    double      _upward_person_arrival_rate = 1;
-    double      _car_arrival_rate = 1;
+    double      _downward_person_arrival_rate = 0.2;
+    double      _upward_person_arrival_rate = 0.2;
+    double      _car_arrival_rate = 0.2;
     double      _moderating_rate = 0.3;
     vector<int> _car_ratio = {14, 5, 1};
+    vector<int> _retrograde_car_ratio = {4, 1};
 
     double _once_crossing_rate = 0.4;
     int    _upper_bound_time = 5;

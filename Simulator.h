@@ -51,6 +51,7 @@ private:
     Road       select_road(int left_gap, int cur_gap, int right_gap, Transport *trans) const;
     int        calc_gap(Transport *transport) const;
     Transport *left_front_nearest_car(Transport *transport) const;
+    Transport *right_front_nearest_car(Transport *transport) const;
     bool       is_front(Transport *cur_trans, Transport *front_trans) const;
     bool       region_change(Transport *transport) const;
     int        distance(Transport *from, Transport *to) const;

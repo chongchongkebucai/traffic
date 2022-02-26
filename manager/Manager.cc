@@ -27,12 +27,18 @@ Person *Manager::create_person() {
     return person;
 }
 
-Car *Manager::create_car() {
+Car *Manager::create_car(Direction dir) {
     Car *car = nullptr;
     int  id = get_id();
 
-    auto &car_ratio = _config->get_car_ratio();
-    int   index = _random.discrete_distribution(car_ratio);
+    vector<int> car_ratio;
+    if (dir == Direction::kRight) {
+        car_ratio = _config->get_car_ratio();
+    } else {
+        car_ratio = _config->get_retrograde_car_ratio();
+    }
+
+    int index = _random.discrete_distribution(car_ratio);
     if (index == 0) {
         car = new Electrocar(id);
         car->set_width(_config->get_electrocar_width());
@@ -51,7 +57,7 @@ Car *Manager::create_car() {
     } else {
         std::cout << "应该不会进入这里吧！不会吧不会吧" << std::endl;
     }
-    car->set_direction(Direction::kRight);
+    car->set_direction(dir);
     car->set_accelerated_speed(_config->get_accelerated_speed());
     car->set_time(0);
     return car;

@@ -17,6 +17,10 @@ public:
     void set_x(int x) { _x = x; }
     void set_y(int y) { _y = y; }
 
+    void move(int x, int y);
+    void move_x(int x) { _x = _x + x; }
+    void move_y(int y) { _y = _y + y; }
+
     bool operator<(const Location &rhs) const {
         return _y < rhs.get_y() || (_y == rhs.get_y() && _x < rhs.get_x());
     }
@@ -30,6 +34,11 @@ private:
 
 inline std::ostream &operator<<(std::ostream &os, const Location &Location) {
     return os << "(" << Location.get_x() << ", " << Location.get_y() << ")";
+}
+
+inline void Location::move(int x, int y) {
+    move_x(x);
+    move_y(y);
 }
 
 } // namespace traffic

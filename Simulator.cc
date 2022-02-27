@@ -161,9 +161,11 @@ void Simulator::no_once_cross(Person *person, Transport *car) {
 
 void Simulator::calc_speed(Car *car) {
     auto loc = car->get_cur_loc();
+    auto dir = car->get_direction();
     auto car_box = car->get_bounding_box();
     auto width = _config->get_lane_width();
     auto speed = car->get_speed();
+    speed = std::min(speed + _config->get_accelerated_speed(), car->get_max_speed());
 
     // 计算车辆部分超出边界的速度
     if (!_map->get_super_way().contains_x(car_box)) {
@@ -177,12 +179,38 @@ void Simulator::calc_speed(Car *car) {
         car->set_cur_loc(loc);
         int cur_gap = calc_gap(car);
 
-        Road road = select_road(left_gap, cur_gap, right_gap, car);
-        car->set_next_road(road);
+        Transport *trans = front_transport(car);
+        if (trans && dynamic_cast<Car *>(trans) != nullptr &&
+            opposite_direction(trans->get_direction(), car->get_direction()) &&
+            distance(car, trans) < 45) {
+            auto dist = distance(car, trans);
+            if (15 <= dist && dist < 45) {
+                left_gap = 0;
+                Road road = select_road(left_gap, cur_gap, right_gap, car);
+                car->set_next_road(road);
 
-        auto gap = std::max(cur_gap, std::max(left_gap, right_gap));
-        speed = std::min(speed + _config->get_accelerated_speed(), car->get_max_speed());
-        car->set_next_speed(std::min(speed, gap));
+                auto gap = std::max(cur_gap, std::max(left_gap, right_gap));
+                speed = std::min(speed + _config->get_accelerated_speed(), car->get_max_speed());
+                car->set_next_speed(std::min(speed, gap));
+            } else {
+                if ((dir == Direction::kRight && right_gap == 0) ||
+                    (dir == Direction::kLeft && left_gap == 0)) {
+                    car->set_next_road(Road::kMiddle);
+                    car->set_next_speed(0);
+                } else {
+
+                    car->set_next_road(dir == Direction::kRight ? Road::kRight : Road::kLeft);
+                    car->set_next_speed(
+                        std::min(speed, dir == Direction::kRight ? right_gap : left_gap));
+                }
+            }
+        } else {
+            Road road = select_road(left_gap, cur_gap, right_gap, car);
+            car->set_next_road(road);
+
+            auto gap = std::max(cur_gap, std::max(left_gap, right_gap));
+            car->set_next_speed(std::min(speed, gap));
+        }
     }
 
     if (_random->bernoulli_distribution(_config->get_moderating_rate())) {

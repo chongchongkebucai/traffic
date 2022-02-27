@@ -185,11 +185,20 @@ void Simulator::calc_speed(Car *car) {
             distance(car, trans) < 45) {
             auto dist = distance(car, trans);
             if (15 <= dist && dist < 45) {
-                left_gap = 0;
+                if (dir == Direction::kRight) {
+                    left_gap = 0;
+                } else if (dir == Direction::kLeft) {
+                    right_gap = 0;
+                }
                 Road road = select_road(left_gap, cur_gap, right_gap, car);
                 car->set_next_road(road);
 
-                auto gap = std::max(cur_gap, std::max(left_gap, right_gap));
+                int gap = cur_gap;
+                if (road == Road::kLeft) {
+                    gap = left_gap;
+                } else if (road == Road::kRight) {
+                    gap = right_gap;
+                }
                 speed = std::min(speed + _config->get_accelerated_speed(), car->get_max_speed());
                 car->set_next_speed(std::min(speed, gap));
             } else {
@@ -208,7 +217,12 @@ void Simulator::calc_speed(Car *car) {
             Road road = select_road(left_gap, cur_gap, right_gap, car);
             car->set_next_road(road);
 
-            auto gap = std::max(cur_gap, std::max(left_gap, right_gap));
+            int gap = cur_gap;
+            if (road == Road::kLeft) {
+                gap = left_gap;
+            } else if (road == Road::kRight) {
+                gap = right_gap;
+            }
             car->set_next_speed(std::min(speed, gap));
         }
     }
@@ -339,32 +353,38 @@ Road Simulator::select_road(int left_gap, int cur_gap, int right_gap, Transport 
     }
 
     if (left_gap == right_gap) {
-        if (_random->bernoulli_distribution(0.5)) {
-            return Road::kLeft;
-        } else {
+        if (dir == Direction::kRight) {
             return Road::kRight;
+        } else if (dir == Direction::kLeft) {
+            return Road::kLeft;
+        } else if (dir == Direction::kUp) {
+            return Road::kRight;
+        } else if (dir == Direction::kDown) {
+            return Road::kLeft;
         }
     } else {
         if (left_gap > right_gap) {
-            if (dir == Direction::kUp) {
-                return Road::kLeft;
-            } else if (dir == Direction::kDown) {
-                return Road::kRight;
-            } else if (dir == Direction::kRight) {
-                return Road::kLeft;
-            } else {
-                return Road::kRight;
-            }
+            return Road::kLeft;
+            // if (dir == Direction::kUp) {
+            //     return Road::kLeft;
+            // } else if (dir == Direction::kDown) {
+            //     return Road::kRight;
+            // } else if (dir == Direction::kRight) {
+            //     return Road::kLeft;
+            // } else {
+            //     return Road::kRight;
+            // }
         } else {
-            if (dir == Direction::kUp) {
-                return Road::kRight;
-            } else if (dir == Direction::kDown) {
-                return Road::kLeft;
-            } else if (dir == Direction::kRight) {
-                return Road::kRight;
-            } else {
-                return Road::kLeft;
-            }
+            return Road::kRight;
+            // if (dir == Direction::kUp) {
+            //     return Road::kRight;
+            // } else if (dir == Direction::kDown) {
+            //     return Road::kLeft;
+            // } else if (dir == Direction::kRight) {
+            //     return Road::kRight;
+            // } else {
+            //     return Road::kLeft;
+            // }
         }
     }
 }

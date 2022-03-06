@@ -9,7 +9,7 @@ class Trans:
     def __str__(self):
         return "(%d, %d)" % (self.x, self.y)
 
-file_name = "/home/congxiang/work/TrafficSimulator/data/time_space.txt"
+file_name = "/home/congxiang/traffic/data/time_space.txt"
 color_table = ["#00FF00", "#0000FF", "#FF0000"]
 length = len(color_table)
 

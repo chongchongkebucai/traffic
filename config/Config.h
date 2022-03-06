@@ -99,8 +99,8 @@ public:
     void set_retrograde_car_ratio(const vector<int> &ratio) { _retrograde_car_ratio = ratio; }
 
 private:
-    string _time_space_file = "/home/congxiang/work/TrafficSimulator/data/time_space.txt";
-    string _delay_file = "/home/congxiang/work/TrafficSimulator/data/delay.txt";
+    string _time_space_file = "/home/congxiang/traffic/data/time_space.txt";
+    string _delay_file = "/home/congxiang/traffic/data/delay.txt";
 
     int _row_num = 8;
     int _col_num = 190;
@@ -120,10 +120,10 @@ private:
     int _tricycle_width = 5;
     int _tricycle_height = 2;
 
-    double      _downward_person_arrival_rate = 0.3;
-    double      _upward_person_arrival_rate = 0.1;
-    double      _left_car_arrival_rate = 0.3;
-    double      _right_car_arrival_rate = 0.1;
+    double      _downward_person_arrival_rate = 0.5;
+    double      _upward_person_arrival_rate = 0.5;
+    double      _left_car_arrival_rate = 0.25;
+    double      _right_car_arrival_rate = 0.075;
     double      _moderating_rate = 0.3;
     vector<int> _car_ratio = {14, 5, 1};
     vector<int> _retrograde_car_ratio = {4, 1};
@@ -133,15 +133,15 @@ private:
     int    _lower_bound_time = 4;
     int    _upper_bound_dist = 15;
     int    _lower_bound_dist = 13;
-    double _downward_person_pass_rate = 0.2;
-    double _upward_person_pass_rate = 0.1;
+    double _downward_person_pass_rate = 0.1;
+    double _upward_person_pass_rate = 0.2;
 
     int _person_normal_speed = 3;
     int _person_max_speed = 4;
     int _electrocar_max_speed = 16;
     int _bicycle_max_speed = 12;
     int _tricycle_max_speed = 14;
-    int _accelerated_speed = 1;
+    int _accelerated_speed = 4;
 
     int _safe_dist = 80;
     int _lane_width = 2;

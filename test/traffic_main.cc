@@ -18,6 +18,7 @@ int main() {
 
         count++;
         if (count > 1000) {
+            std::cout << "The conflict number are " << simulator.get_conflict_num() << std::endl;
             exit(0);
         }
         if (count >= 500) {

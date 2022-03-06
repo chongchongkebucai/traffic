@@ -49,13 +49,18 @@ void Log::write_coord(Transport *trans) {
         _time_space_out << (dir == Direction::kUp ? 0 : 1) << " ";
         _time_space_out << trans->get_cur_loc().get_y();
     } else if (dynamic_cast<Car *>(trans) != nullptr) {
-        if (dynamic_cast<Bicycle *>(trans) != nullptr) {
+        if (trans->get_direction() == Direction::kRight) {
             _time_space_out << 1 << " ";
-        } else if (dynamic_cast<Electrocar *>(trans) != nullptr) {
+        } else {
             _time_space_out << 2 << " ";
-        } else if (dynamic_cast<Tricycle *>(trans) != nullptr) {
-            _time_space_out << 3 << " ";
         }
+        // if (dynamic_cast<Bicycle *>(trans) != nullptr) {
+        //     _time_space_out << 1 << " ";
+        // } else if (dynamic_cast<Electrocar *>(trans) != nullptr) {
+        //     _time_space_out << 2 << " ";
+        // } else if (dynamic_cast<Tricycle *>(trans) != nullptr) {
+        //     _time_space_out << 3 << " ";
+        // }
         _time_space_out << trans->get_cur_loc().get_x();
     } else {
         assert(0);

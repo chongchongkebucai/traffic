@@ -15,6 +15,7 @@ Simulator::Simulator(const string &confige_file) {
     this->_random = new Random();
     this->_map = new Map(this->_config);
     this->_log = new Log(this->_config);
+    this->_conflict_num = 0;
 }
 
 Simulator::~Simulator() {
@@ -234,6 +235,17 @@ void Simulator::calc_speed(Car *car) {
     }
 }
 void Simulator::update_loc() {
+    int count = 0;
+    for (auto *trans : _transports) {
+        auto next_road = trans->get_next_road();
+        auto next_speed = trans->get_next_speed();
+        auto speed = trans->get_speed();
+        if (next_road != Road::kMiddle || next_speed != speed + _config->get_accelerated_speed()) {
+            count++;
+        }
+    }
+    _conflict_num += count;
+
     for (auto *trans : _transports) {
         if (dynamic_cast<Car *>(trans) != nullptr) {
             update_loc(trans);

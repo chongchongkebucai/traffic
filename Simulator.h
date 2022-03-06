@@ -4,6 +4,7 @@
 #include <climits>
 #include <list>
 #include <string>
+#include <utility>
 
 #include "Color.h"
 #include "Config.h"
@@ -16,6 +17,7 @@
 
 namespace traffic {
 using std::list;
+using std::pair;
 
 class Simulator {
 public:
@@ -31,6 +33,7 @@ public:
     void display();
 
     bool check() const;
+    int  get_conflict_num() const { return _conflict_num; }
 
     void write_date(int time) const { _log->write_coord(time, _transports); }
 
@@ -71,6 +74,8 @@ private:
     Map *             _map;
     list<Transport *> _transports;
     Log *             _log;
+
+    int _conflict_num;
 };
 
 inline bool Simulator::is_person(Transport *transport) const {

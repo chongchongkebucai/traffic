@@ -141,7 +141,7 @@ private:
     int _electrocar_max_speed = 16;
     int _bicycle_max_speed = 12;
     int _tricycle_max_speed = 14;
-    int _accelerated_speed = 1;
+    int _accelerated_speed = 4;
 
     int _safe_dist = 80;
     int _lane_width = 2;

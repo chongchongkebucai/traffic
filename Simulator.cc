@@ -15,7 +15,8 @@ Simulator::Simulator(const string &confige_file) {
     this->_random = new Random();
     this->_map = new Map(this->_config);
     this->_log = new Log(this->_config);
-    this->_conflict_num = 0;
+    this->_car_conflict_num = 0;
+    this->_person_conflict_num = 0;
 }
 
 Simulator::~Simulator() {
@@ -72,10 +73,21 @@ void Simulator::calc_speed(Person *person) {
     Road road = select_road(left_gap, cur_gap, right_gap, person);
     person->set_next_road(road);
 
+    Transport *front_trans = front_transport(person);
+    if (road != Road::kMiddle) {
+        if (dynamic_cast<Car *>(front_trans) != nullptr) {
+            person->set_conflict(true);
+        }
+    }
+
     auto gap = std::max(cur_gap, std::max(left_gap, right_gap));
     auto normal_speed = person->get_normal_speed();
     auto next_speed = std::min(normal_speed, gap);
     person->set_next_speed(next_speed);
+
+    if (next_speed != normal_speed && dynamic_cast<Car *>(front_trans) != nullptr) {
+        person->set_conflict(true);
+    }
 }
 void Simulator::revise_speed(Person *person) {
     // 是否需要修正
@@ -131,8 +143,10 @@ void Simulator::once_cross(Person *person, Transport *car) {
             person->set_next_speed(person->get_max_speed());
         } else {
             person->set_next_speed(0);
+            person->set_conflict(true);
         }
     } else {
+        person->set_conflict(true);
         person->set_next_speed(0);
     }
 }
@@ -154,8 +168,10 @@ void Simulator::no_once_cross(Person *person, Transport *car) {
             person->set_next_speed(person->get_max_speed());
         } else {
             person->set_next_speed(0);
+            person->set_conflict(true);
         }
     } else {
+        person->set_conflict(true);
         person->set_next_speed(0);
     }
 }
@@ -193,6 +209,9 @@ void Simulator::calc_speed(Car *car) {
                 }
                 Road road = select_road(left_gap, cur_gap, right_gap, car);
                 car->set_next_road(road);
+                if (road != Road::kMiddle && dynamic_cast<Person *>(trans) != nullptr) {
+                    car->set_conflict(true);
+                }
 
                 int gap = cur_gap;
                 if (road == Road::kLeft) {
@@ -200,23 +219,35 @@ void Simulator::calc_speed(Car *car) {
                 } else if (road == Road::kRight) {
                     gap = right_gap;
                 }
-                speed = std::min(speed + _config->get_accelerated_speed(), car->get_max_speed());
+
                 car->set_next_speed(std::min(speed, gap));
+                if (car->get_conflict() == false && speed != gap &&
+                    dynamic_cast<Person *>(trans) != nullptr) {
+                    car->set_conflict(true);
+                }
             } else {
                 if ((dir == Direction::kRight && right_gap == 0) ||
                     (dir == Direction::kLeft && left_gap == 0)) {
                     car->set_next_road(Road::kMiddle);
                     car->set_next_speed(0);
                 } else {
-
                     car->set_next_road(dir == Direction::kRight ? Road::kRight : Road::kLeft);
                     car->set_next_speed(
                         std::min(speed, dir == Direction::kRight ? right_gap : left_gap));
+                }
+
+                if (dynamic_cast<Person *>(trans) != nullptr) {
+                    car->set_conflict(true);
                 }
             }
         } else {
             Road road = select_road(left_gap, cur_gap, right_gap, car);
             car->set_next_road(road);
+
+            Transport *front_trans = front_transport(car);
+            if (road != Road::kMiddle && dynamic_cast<Person *>(front_trans) != nullptr) {
+                car->set_conflict(true);
+            }
 
             int gap = cur_gap;
             if (road == Road::kLeft) {
@@ -225,6 +256,10 @@ void Simulator::calc_speed(Car *car) {
                 gap = right_gap;
             }
             car->set_next_speed(std::min(speed, gap));
+            if (car->get_conflict() == false && speed != gap &&
+                dynamic_cast<Person *>(trans) != nullptr) {
+                car->set_conflict(true);
+            }
         }
     }
 
@@ -235,17 +270,6 @@ void Simulator::calc_speed(Car *car) {
     }
 }
 void Simulator::update_loc() {
-    int count = 0;
-    for (auto *trans : _transports) {
-        auto next_road = trans->get_next_road();
-        auto next_speed = trans->get_next_speed();
-        auto speed = trans->get_speed();
-        if (next_road != Road::kMiddle || next_speed != speed + _config->get_accelerated_speed()) {
-            count++;
-        }
-    }
-    _conflict_num += count;
-
     for (auto *trans : _transports) {
         if (dynamic_cast<Car *>(trans) != nullptr) {
             update_loc(trans);
@@ -255,6 +279,20 @@ void Simulator::update_loc() {
         if (dynamic_cast<Person *>(trans) != nullptr) {
             update_loc(trans);
         }
+    }
+
+    for (auto *trans : _transports) {
+        if (dynamic_cast<Car *>(trans) != nullptr) {
+            if (trans->get_conflict() == true) {
+                _car_conflict_num++;
+            }
+        } else if (dynamic_cast<Person *>(trans) != nullptr) {
+            if (trans->get_conflict() == true) {
+                _person_conflict_num++;
+            }
+        }
+
+        trans->set_conflict(false);
     }
 }
 void Simulator::update_loc(Transport *trans) {
@@ -269,7 +307,26 @@ void Simulator::update_loc(Transport *trans) {
         _map->add_transport(trans);
     } else {
         trans->set_next_speed(0);
+
+        auto       ids = _map->get_id(rect);
+        Transport *next_trans = find_transport(ids);
+        if (dynamic_cast<Person *>(trans) != nullptr &&
+                dynamic_cast<Car *>(next_trans) != nullptr ||
+            dynamic_cast<Car *>(trans) != nullptr &&
+                dynamic_cast<Person *>(next_trans) != nullptr) {
+            trans->set_conflict(true);
+        }
     }
+}
+
+Transport *Simulator::find_transport(const vector<int> &ids) const {
+    for (auto cur_id : ids) {
+        auto *trans = find_transport(cur_id);
+        if (trans) {
+            return trans;
+        }
+    }
+    return nullptr;
 }
 
 bool Simulator::placeable(const Rect &rect, int id) const {

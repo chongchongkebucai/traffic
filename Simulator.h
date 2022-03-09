@@ -33,7 +33,8 @@ public:
     void display();
 
     bool check() const;
-    int  get_conflict_num() const { return _conflict_num; }
+    int  get_car_conflict_num() const { return _car_conflict_num; }
+    int  get_person_conflict_num() const { return _person_conflict_num; }
 
     void write_date(int time) const { _log->write_coord(time, _transports); }
 
@@ -60,6 +61,7 @@ private:
     int        distance(Transport *from, Transport *to) const;
 
     Transport *find_transport(int id) const;
+    Transport *find_transport(const vector<int> &ids) const;
     Transport *front_transport(Transport *transport) const;
     bool       is_person(Transport *transport) const;
     bool       is_car(Transport *transport) const;
@@ -75,7 +77,8 @@ private:
     list<Transport *> _transports;
     Log *             _log;
 
-    int _conflict_num;
+    int _car_conflict_num;
+    int _person_conflict_num;
 };
 
 inline bool Simulator::is_person(Transport *transport) const {

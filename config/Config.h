@@ -120,10 +120,10 @@ private:
     int _tricycle_width = 5;
     int _tricycle_height = 2;
 
-    double      _downward_person_arrival_rate = 0.5;
-    double      _upward_person_arrival_rate = 0.5;
-    double      _left_car_arrival_rate = 0.25;
-    double      _right_car_arrival_rate = 0.075;
+    double      _downward_person_arrival_rate = 0.1;
+    double      _upward_person_arrival_rate = 0.1;
+    double      _left_car_arrival_rate = 0;
+    double      _right_car_arrival_rate = 0;
     double      _moderating_rate = 0.3;
     vector<int> _car_ratio = {14, 5, 1};
     vector<int> _retrograde_car_ratio = {4, 1};
@@ -141,7 +141,7 @@ private:
     int _electrocar_max_speed = 16;
     int _bicycle_max_speed = 12;
     int _tricycle_max_speed = 14;
-    int _accelerated_speed = 4;
+    int _accelerated_speed = 1;
 
     int _safe_dist = 80;
     int _lane_width = 2;
